@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: InGame
+  m_EditorClassIdentifier: 
+  m_GroupName: InGame
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 9a9a5fc47a49af8488cc4d05c36cb65c
+  m_SerializeEntries:
+  - m_GUID: f3fbb60492a25774d8b164ea89734f61
+    m_Address: Assets/Level/Prefabs/Asteroid.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c12effd84d3972d4b876aea243e3fcdb
+    m_Address: Assets/Level/Prefabs/Bullet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d5c955414cca194185a0f013648fda7
+    m_Address: Assets/Level/Prefabs/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca7d56455a7cf454fa2240b91f7663da
+    m_Address: Assets/Level/Prefabs/Saucer.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 8a5990b928dda4942bc50cdecef15161, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 98929079381255a42b7b8ec78363f6be, type: 2}
+    - {fileID: 11400000, guid: 22166c674e9801046b22f31dad5b02d6, type: 2}
