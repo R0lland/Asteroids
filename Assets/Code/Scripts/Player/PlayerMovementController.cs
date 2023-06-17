@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [SerializeField] private InputAction _movementInputs;
+    [SerializeField] private InputReader _inputReader;
 
     private const float PLAYER_FORWARD_SPEED = 2f;
     private const float PLAYER_TURN_SPEED = 5f;
@@ -12,16 +11,6 @@ public class PlayerMovementController : MonoBehaviour
     private float _thrust;
     private float turnDirection;
 
-    private void OnEnable()
-    {
-        _movementInputs.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _movementInputs.Disable();
-    }
-
     private void Start()
     {
         _rBody = GetComponent<Rigidbody2D>();
@@ -29,8 +18,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        _thrust = _movementInputs.ReadValue<Vector2>().y;
-        turnDirection = _movementInputs.ReadValue<Vector2>().x;
+        _thrust = _inputReader.Movement.ReadValue<Vector2>().y;
+        turnDirection = _inputReader.Movement.ReadValue<Vector2>().x;
     }
 
     private void FixedUpdate()

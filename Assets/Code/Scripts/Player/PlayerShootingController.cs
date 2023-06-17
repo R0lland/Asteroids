@@ -3,23 +3,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerShootingController : MonoBehaviour
 {
-    [SerializeField] private InputAction _shootingInput;
     [SerializeField] private Transform _bulletPoint;
+    [SerializeField] private Bullet _bullet;
+    [SerializeField] private InputReader _inputReader;
 
-    private void OnEnable()
+    private void Start()
     {
-        _shootingInput.Enable();
-        _shootingInput.performed += Fire;
-    }
-
-    private void OnDisable()
-    {
-        _shootingInput.Disable();
-        _shootingInput.performed -= Fire;
+        _inputReader.SetActionInput(Fire);
     }
 
     private void Fire(InputAction.CallbackContext context)
     {
-        Debug.Log("Shooting");
+        Instantiate(_bullet, _bulletPoint.position, _bulletPoint.rotation);
     }
 }
