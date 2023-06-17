@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private const float BULLET_SPEED = 10f;
+    [SerializeField] private ConfigBullet config;
 
     private void Update()
     {
-        transform.position += transform.up * Time.deltaTime * BULLET_SPEED;
+        transform.position += transform.up * Time.deltaTime * config.speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 5593384249545513342}
+  _playerMovementConfig: {fileID: 11400000, guid: ebe65dd24aa5ca248a166656d46a51a9, type: 2}
 --- !u!114 &5027542729511531756
 MonoBehaviour:
   m_ObjectHideFlags: 0

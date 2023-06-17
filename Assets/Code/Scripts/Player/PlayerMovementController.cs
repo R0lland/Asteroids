@@ -3,9 +3,7 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
-
-    private const float PLAYER_FORWARD_SPEED = 2f;
-    private const float PLAYER_TURN_SPEED = 5f;
+    [SerializeField] private ConfigPlayerMovement _playerMovementConfig;
 
     private Rigidbody2D _rBody;
     private float _thrust;
@@ -26,12 +24,12 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (_thrust > 0)
         {
-            _rBody.AddForce(transform.up * PLAYER_FORWARD_SPEED * _thrust);
+            _rBody.AddForce(transform.up * _playerMovementConfig.thrustSpeed * _thrust);
         }
 
         if (turnDirection != 0f)
         {
-            _rBody.AddTorque(turnDirection * -PLAYER_TURN_SPEED);
+            _rBody.AddTorque(turnDirection * -_playerMovementConfig.rotationSpeed);
         }
     }
 }
