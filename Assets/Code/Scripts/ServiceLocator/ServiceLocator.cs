@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-namespace ServiceLocator.ServiceLocator
+namespace ServiceLocatorAsteroid.Service
 {
     /// <summary>
     /// Simple service locator for <see cref="IGameService"/> instances.
@@ -24,7 +24,7 @@ namespace ServiceLocator.ServiceLocator
         /// <summary>
         /// Initalizes the service locator with a new instance.
         /// </summary>
-        public static void Initiailze()
+        public static void Initialize()
         {
             Current = new ServiceLocator();
         }

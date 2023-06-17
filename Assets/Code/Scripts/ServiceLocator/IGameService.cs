@@ -1,4 +1,4 @@
-namespace ServiceLocator.ServiceLocator
+namespace ServiceLocatorAsteroid.Service
 {
     /// <summary>
     /// Base interface for our service locator to work with. Services implementing
