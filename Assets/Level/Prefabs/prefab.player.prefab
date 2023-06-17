@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5943561076797853111}
   - component: {fileID: 8237403355925174433}
   - component: {fileID: 5027542729511531756}
+  - component: {fileID: 5593384249545513342}
   - component: {fileID: 1857624609699739193}
   m_Layer: 0
   m_Name: prefab.player
@@ -35,7 +36,7 @@ Transform:
   - {fileID: 7910809791248023270}
   - {fileID: 3671973394881672131}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5943561076797853111
 MonoBehaviour:
@@ -61,7 +62,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa92d06b6cf9e334491426d3865fa306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementInputs:
+  _inputReader: {fileID: 5593384249545513342}
+--- !u!114 &5027542729511531756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7288697584985624453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4bf0123f82e730469f74f18d85ad1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPoint: {fileID: 3671973394881672131}
+  _bullet: {fileID: -4368535669916833322, guid: ece15f8d2bc13994c954547a06b00c51, type: 3}
+  _inputReader: {fileID: 5593384249545513342}
+--- !u!114 &5593384249545513342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7288697584985624453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72357589c07302646a3eaf0dcdb2bfb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement:
     m_Name: Movement Inputs
     m_Type: 0
     m_ExpectedControlType: Vector2
@@ -118,19 +147,7 @@ MonoBehaviour:
       m_Action: Movement Inputs
       m_Flags: 0
     m_Flags: 0
---- !u!114 &5027542729511531756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7288697584985624453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4bf0123f82e730469f74f18d85ad1eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shootingInput:
+  _action:
     m_Name: Shooting Input
     m_Type: 1
     m_ExpectedControlType: Button
@@ -163,7 +180,6 @@ MonoBehaviour:
       m_Action: Shooting Input
       m_Flags: 0
     m_Flags: 0
-  _bulletPoint: {fileID: 3671973394881672131}
 --- !u!50 &1857624609699739193
 Rigidbody2D:
   serializedVersion: 4
@@ -178,7 +194,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
