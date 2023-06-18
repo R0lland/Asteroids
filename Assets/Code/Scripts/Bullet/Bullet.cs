@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour
 {
@@ -15,27 +14,28 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IHittable hittable = GetComponent<IHittable>();
-        Debug.LogError(hittable);
-        if (hittable != null)
-        {
-            CheckForTargetHit(hittable);
-        }
-    }
+        if (_target == HitType.None) { return; }
 
-    private void CheckForTargetHit(IHittable targetHit)
-    {
-        Debug.LogError(targetHit.hitType + " - " + _target);
-        if (_target == targetHit.hitType)
+        if (_target == HitType.Enemy)
         {
-            Debug.LogError("HIT");
-            targetHit.OnHitTaken();
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.OnHitTaken();
+            }
+        }
+        else if (_target == HitType.Player)
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            if (player != null)
+            {
+                player.OnHitTaken();
+            }
         }
     }
 
     public void SetTarget(HitType hitType)
     {
-        Debug.LogError(hitType);
         _target = hitType;
     }
 }

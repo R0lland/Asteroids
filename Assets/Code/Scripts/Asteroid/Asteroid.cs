@@ -1,19 +1,11 @@
 using UnityEngine;
 
-public class Asteroid : MonoBehaviour, IHittable
+public class Asteroid : Enemy
 {
-    private float _speed = 1f;
+    private float _speed = 0.3f;
     private int _currentSize = 4;
 
-    public HitType hitType => HitType.Enemy;
-
-    private void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.position += transform.up * Time.deltaTime * _speed;
     }
@@ -36,7 +28,7 @@ public class Asteroid : MonoBehaviour, IHittable
         
     }
 
-    public void OnHitTaken()
+    public override void OnHitTaken()
     {
         Explode();
     }

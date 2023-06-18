@@ -7,18 +7,33 @@ public class Player : MonoBehaviour, IHittable
 
     public HitType hitType => HitType.Player;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            OnHitTaken();
+        }
+    }
+
     public void SetData(Action onHitTaken)
     {
         _onHitTaken = onHitTaken;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        OnHitTaken();
-    }
-
     public void OnHitTaken()
     {
+        Explode();
         _onHitTaken?.Invoke();
+    }
+
+    private void Explode()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Respawn()
+    {
+
     }
 }
