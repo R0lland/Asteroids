@@ -133,6 +133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _configAsteroid: {fileID: 11400000, guid: be2e0ed1baa39d542be2a6136ff987af, type: 2}
   _spriteRenderer: {fileID: 2971738185866987146}
+  _asteroidStages:
+  - {fileID: 11400000, guid: 09ccb35a6e19b7a4799290d205b8f3d1, type: 2}
+  - {fileID: 11400000, guid: 238274a0c37208747aa5de53003eef99, type: 2}
+  - {fileID: 11400000, guid: 8417af3b7c9df85488fb4748714b1107, type: 2}
 --- !u!50 &3293797328151190787
 Rigidbody2D:
   serializedVersion: 4
@@ -189,7 +193,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

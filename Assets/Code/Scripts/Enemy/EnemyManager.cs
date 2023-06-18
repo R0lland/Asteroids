@@ -14,11 +14,12 @@ public class EnemyManager : IGameService
         _asteroid = asteroid;
     }
 
-    public void CreateEnemy(Vector3 position, Quaternion rotation)
+    public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage)
     {
-        Enemy enemy = GameObject.Instantiate(_asteroid, position, rotation);
-        _asteroid.Initialize(this);
-        _enemiesActive.Add(enemy);
+        Asteroid asteroid = GameObject.Instantiate(_asteroid, position, rotation);
+        asteroid.Initialize();
+        asteroid.SetAsteroidStage(asteroidStage);
+        _enemiesActive.Add(asteroid);
     }
 
     public void RemoveEnemy(Enemy enemy)

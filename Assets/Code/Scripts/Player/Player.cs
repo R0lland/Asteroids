@@ -29,7 +29,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void Explode()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     public void Respawn()

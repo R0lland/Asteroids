@@ -1,28 +1,60 @@
+using ServiceLocatorAsteroid.Service;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Asteroid : Enemy
 {
-    [SerializeField] ConfigAsteroid _configAsteroid;
+    [SerializeField] ConfigAsteroidSprites _configAsteroid;
     [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] List<ConfigAsteroidStage> _asteroidStages = new List<ConfigAsteroidStage>();
 
-    private float _speed = 0.3f;
-    private int _currentStage = 3;
+    private float _speed = 0.5f;
+    private ConfigAsteroidStage _currentStage;
 
     private void Update()
     {
         transform.position += transform.up * Time.deltaTime * _speed;
     }
 
-    public override void Initialize(EnemyManager enemyManager)
+    private void Start()
     {
-        base.Initialize(enemyManager);
+        if (_currentStage == null)
+        {
+            Initialize();
+            SetAsteroidStage(0);
+        }
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
         SetRandomSprite();
+        SetDirection();
+    }
+
+    public void SetAsteroidStage(int stage)
+    {
+        if (stage > _asteroidStages.Count - 1 || stage < 0)
+        {
+            Debug.LogError("Number of asteroid stages cannot be less then zero or higher then the number of stages");
+            _currentStage = _asteroidStages[0];
+            return;
+        }
+        _currentStage = _asteroidStages[stage];
+        SetStageData();
+    }
+
+    private void SetStageData()
+    {
+        _speed = Random.Range(_currentStage.minSpeed, _currentStage.maxSpeed);
+        transform.localScale = new Vector3(_currentStage.size, _currentStage.size, _currentStage.size);
+        _spriteRenderer.transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360);
     }
 
     private void SetDirection()
     {
-
+        transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360);
     }
 
     private void SetRandomSprite()
@@ -33,22 +65,30 @@ public class Asteroid : Enemy
 
     private void Explode()
     {
-        _currentStage--;
-        if (_currentStage <= 0)
+        int nextStage = _currentStage.id + 1;
+        if (nextStage >= _asteroidStages.Count)
         {
-            Destroy(gameObject);
+            _enemyManager.RemoveEnemy(this);
         }
         else
         {
-            Split();
+            Split(nextStage);
         }
     }
 
-    private void Split()
+    private void Split(int nextStage)
     {
+        SetAsteroidStage(nextStage);
         SetRandomSprite();
-        transform.localScale = transform.localScale * 0.5f;
-        _spriteRenderer.transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360);
+        SetDirection();
+        SetStageData();
+        if (_enemyManager != null)
+        {
+            for (int i = 0; i < _currentStage.additionalAsteroid; i++)
+            {
+                _enemyManager.CreateEnemyAsteroid(transform.position, transform.rotation, nextStage);
+            }
+        }
     }
 
     public override void OnHitTaken()

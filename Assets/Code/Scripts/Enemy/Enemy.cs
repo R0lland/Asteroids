@@ -1,3 +1,4 @@
+using ServiceLocatorAsteroid.Service;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +16,11 @@ public class Enemy : MonoBehaviour, IHittable
         
     }
 
-    public virtual void Initialize(EnemyManager enemyManager)
+    public virtual void Initialize()
     {
-        _enemyManager = enemyManager;
+        if (_enemyManager == null)
+        {
+            _enemyManager = ServiceLocator.Current.Get<EnemyManager>();
+        }
     }
 }
