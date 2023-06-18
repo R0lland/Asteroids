@@ -14,6 +14,7 @@ public class PlayerShootingController : MonoBehaviour
 
     private void Fire(InputAction.CallbackContext context)
     {
-        Instantiate(_bullet, _bulletPoint.position, _bulletPoint.rotation);
+        Bullet b = Instantiate(_bullet, _bulletPoint.position, _bulletPoint.rotation);
+        b.SetTarget(HitType.Enemy);
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace ServiceLocatorAsteroid.Service
 {
     /// <summary>
@@ -6,6 +8,6 @@ namespace ServiceLocatorAsteroid.Service
     /// </summary> 
     public interface IGameService
     {
-
+        
     }
 }

@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHittable
 {
-    // Start is called before the first frame update
-    void Start()
+    private Action _onHitTaken;
+
+    public HitType hitType => HitType.Player;
+
+    public void SetData(Action onHitTaken)
     {
-        
+        _onHitTaken = onHitTaken;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        OnHitTaken();
+    }
+
+    public void OnHitTaken()
+    {
+        _onHitTaken?.Invoke();
     }
 }
