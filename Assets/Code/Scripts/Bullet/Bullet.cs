@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -6,10 +8,18 @@ public class Bullet : MonoBehaviour
     [SerializeField] private ConfigBullet config;
 
     private HitType _target = HitType.None;
+    private Action<Bullet> _onBulletDestroyed;
+    private BulletManager _bulletManager;
 
     private void Update()
     {
         transform.position += transform.up * Time.deltaTime * config.speed;
+    }
+
+    public void Initialize(HitType hitType, BulletManager bulletManager)
+    {
+        _target = hitType;
+        _bulletManager = bulletManager;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,6 +32,7 @@ public class Bullet : MonoBehaviour
             if (enemy != null)
             {
                 enemy.OnHitTaken();
+                _bulletManager.RemoveBullet(this);
             }
         }
         else if (_target == HitType.Player)
@@ -30,12 +41,8 @@ public class Bullet : MonoBehaviour
             if (player != null)
             {
                 player.OnHitTaken();
+                _bulletManager.RemoveBullet(this);
             }
         }
-    }
-
-    public void SetTarget(HitType hitType)
-    {
-        _target = hitType;
     }
 }

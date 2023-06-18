@@ -117,7 +117,7 @@ Transform:
   m_Children:
   - {fileID: 8063086696493244733}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3197602672714264074
 MonoBehaviour:
@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523c27b89e9573e499f0d2fb15a32b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _configAsteroid: {fileID: 11400000, guid: be2e0ed1baa39d542be2a6136ff987af, type: 2}
+  _spriteRenderer: {fileID: 2971738185866987146}
 --- !u!50 &3293797328151190787
 Rigidbody2D:
   serializedVersion: 4

@@ -37,7 +37,7 @@ Transform:
   - {fileID: 7910809791248023270}
   - {fileID: 3671973394881672131}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5943561076797853111
 MonoBehaviour:
@@ -78,7 +78,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPoint: {fileID: 3671973394881672131}
-  _bullet: {fileID: -4368535669916833322, guid: ece15f8d2bc13994c954547a06b00c51, type: 3}
   _inputReader: {fileID: 5593384249545513342}
 --- !u!114 &5593384249545513342
 MonoBehaviour:
@@ -195,8 +194,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.5
+  m_LinearDrag: 0.8
+  m_AngularDrag: 0.8
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

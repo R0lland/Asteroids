@@ -1,20 +1,22 @@
+using ServiceLocatorAsteroid.Service;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerShootingController : MonoBehaviour
 {
     [SerializeField] private Transform _bulletPoint;
-    [SerializeField] private Bullet _bullet;
     [SerializeField] private InputReader _inputReader;
+
+    private BulletManager _bulletManager;
 
     private void Start()
     {
         _inputReader.SetActionInput(Fire);
+        _bulletManager = ServiceLocator.Current.Get<BulletManager>();
     }
 
     private void Fire(InputAction.CallbackContext context)
     {
-        Bullet b = Instantiate(_bullet, _bulletPoint.position, _bulletPoint.rotation);
-        b.SetTarget(HitType.Enemy);
+        _bulletManager.CreateBullet(HitType.Enemy, _bulletPoint.position, _bulletPoint.rotation);
     }
 }
