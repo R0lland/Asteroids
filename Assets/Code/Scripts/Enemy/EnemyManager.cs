@@ -10,6 +10,7 @@ public class EnemyManager : IEnemyManager
 
     private List<Enemy> _enemiesActive = new List<Enemy>();
     private Action _onAllEnemiesDestroyed;
+    private Action _onEnemyDestroyed;
 
     public EnemyManager(Asteroid asteroid, Saucer saucer)
     {
@@ -17,9 +18,10 @@ public class EnemyManager : IEnemyManager
         _saucer = saucer;
     }
 
-    public void Initialize(Action onAllEnemiesDestoyed)
+    public void Initialize(Action onAllEnemiesDestoyed, Action<int> onEnemyDestroyed)
     {
         _onAllEnemiesDestroyed += onAllEnemiesDestoyed;
+        onEnemyDestroyed += onEnemyDestroyed;
     }
 
     public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage)

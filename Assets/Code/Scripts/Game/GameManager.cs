@@ -8,11 +8,12 @@ public class GameManager : IGameManager
     [SerializeField] private Player _playerPrefab;
     [SerializeField] private UIGame _uiGamePrefab;
 
+    private IEnemyManager _enemyManager;
+    private IUIManager _uiManager;
+
     private int _currentLives = MAX_LIVES;
     private Player _player;
-    private UIGame _uiGame;
     private int _score;
-    private Action<int, int> _onUiUpdate;
 
     public GameManager(Player player)
     {
@@ -25,22 +26,22 @@ public class GameManager : IGameManager
     private void SpawnPlayer()
     {
         _player = GameObject.Instantiate(_playerPrefab, Vector3.zero, new Quaternion(0f, 0f, 0f, 0f));
-        _uiGame = GameObject.Instantiate(_uiGamePrefab);
     }
 
     public void Initialize()
     {
         _score = 0;
+        _enemyManager = ServiceLocator.Current.Get<IEnemyManager>();
+        _uiManager = ServiceLocator.Current.Get<IUIManager>();
+        _uiManager.CreateGameUI();
+        _uiManager.GetGameUI().Initialize(MAX_LIVES);
         _player.Initialize(LoseLife);
-        _uiGame.Initialize(MAX_LIVES);
-        _onUiUpdate = _uiGame.UpdateUI;
-        ServiceLocator.Current.Get<IEnemyManager>().Initialize(RespawnEnemies);
+        _enemyManager.Initialize(RespawnEnemies, Score);
         RespawnEnemies();
     }
 
     private void LoseLife()
     {
-        Debug.LogError("LoseLife");
         _currentLives--;
         if (_currentLives <= 0)
         {
@@ -48,14 +49,14 @@ public class GameManager : IGameManager
         }
         else
         {
-            _onUiUpdate?.Invoke(_currentLives, _score);
+            _uiManager.GetGameUI().UpdateUI(_currentLives, _score);
             _player.Respawn();
         }
     }
 
     private void LoseGame()
     {
-        Debug.LogError("MORREUUUUUUU");
+
     }
 
     private void RespawnEnemies()
@@ -63,13 +64,13 @@ public class GameManager : IGameManager
         for (int i = 0; i < 5; i++)
         {
             Vector3 spawnDirection = UnityEngine.Random.insideUnitCircle.normalized * 5f;
-            ServiceLocator.Current.Get<IEnemyManager>().CreateEnemyAsteroid(spawnDirection, new Quaternion(0f,0f,0f,0f), 0);
+            _enemyManager.CreateEnemyAsteroid(spawnDirection, new Quaternion(0f,0f,0f,0f), 0);
         }
     }
 
     public void Score(int scoreValue)
     {
         _score += scoreValue;
-        _onUiUpdate?.Invoke(_currentLives, _score);
+        _uiManager.GetGameUI().UpdateUI(_currentLives, _score);
     }
 }

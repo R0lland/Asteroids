@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IEnemyManager : IGameService
 {
-    public void Initialize(Action onAllEnemiesDestoyed);
+    public void Initialize(Action onAllEnemiesDestoyed, Action<int> onEnemyDestroyed);
 
     public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage);
 
