@@ -1,4 +1,5 @@
 using ServiceLocatorAsteroid.Service;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ public class Asteroid : Enemy
 
     private ConfigAsteroidStage _currentStage;
 
-    public override void Initialize()
+    public override void Initialize(Action<int> onEnemyDestroyed)
     {
-        base.Initialize();
+        base.Initialize(onEnemyDestroyed);
         SetRandomSprite();
         SetDirection();
     }
@@ -26,23 +27,24 @@ public class Asteroid : Enemy
             return;
         }
         _currentStage = _asteroidStages[stage];
+        _scoreValue = _currentStage.scoreValue;
         SetStageData();
     }
 
     private void SetStageData()
     {
-        _speed = Random.Range(_currentStage.minSpeed, _currentStage.maxSpeed);
+        _speed = UnityEngine.Random.Range(_currentStage.minSpeed, _currentStage.maxSpeed);
         transform.localScale = new Vector3(_currentStage.size, _currentStage.size, _currentStage.size);
-        _spriteRenderer.transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360);
+        _spriteRenderer.transform.eulerAngles = new Vector3(0f, 0f, UnityEngine.Random.value * 360);
     }
 
     private void SetRandomSprite()
     {
-        int spriteId = Random.Range(0, _configAsteroid.spritesList.Count);
+        int spriteId = UnityEngine.Random.Range(0, _configAsteroid.spritesList.Count);
         _spriteRenderer.sprite = _configAsteroid.spritesList[spriteId];
     }
 
-    private void Explode()
+    protected override void Explode()
     {
         int nextStage = _currentStage.id + 1;
         if (nextStage >= _asteroidStages.Count)
@@ -68,11 +70,5 @@ public class Asteroid : Enemy
                 _enemyManager.CreateEnemyAsteroid(transform.position, transform.rotation, nextStage);
             }
         }
-    }
-
-    public override void OnHitTaken()
-    {
-        ServiceLocator.Current.Get<IGameManagerService>().Score(_currentStage.scoreValue);
-        Explode();
     }
 }

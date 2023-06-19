@@ -8,8 +8,12 @@ public class Enemy : MonoBehaviour, IHittable
 {
     public HitType hitType => HitType.Enemy;
 
-    protected float _speed;
     protected IEnemyService _enemyManager;
+
+    protected Action<int> _onEnemyDestroyed;
+
+    protected float _speed;
+    protected int _scoreValue;
 
     protected virtual void Update()
     {
@@ -18,16 +22,23 @@ public class Enemy : MonoBehaviour, IHittable
 
     public virtual void OnHitTaken()
     {
-        
+        _onEnemyDestroyed?.Invoke(_scoreValue);
+        Explode();
     }
 
-    public virtual void Initialize()
+    public virtual void Initialize(Action<int> onEnemyDestroyed)
     {
         if (_enemyManager == null)
         {
             _enemyManager = ServiceLocator.Current.Get<IEnemyService>();
         }
+        _onEnemyDestroyed = onEnemyDestroyed;
         SetDirection();
+    }
+
+    protected virtual void Explode()
+    {
+        _enemyManager.RemoveEnemy(this);
     }
 
     protected void SetDirection()

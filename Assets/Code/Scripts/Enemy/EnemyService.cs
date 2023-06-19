@@ -10,7 +10,7 @@ public class EnemyService : IEnemyService
 
     private List<Enemy> _enemiesActive = new List<Enemy>();
     private Action _onAllEnemiesDestroyed;
-    private Action _onEnemyDestroyed;
+    private Action<int> _onEnemyDestroyed;
 
     public EnemyService(Asteroid asteroid, Saucer saucer)
     {
@@ -20,14 +20,14 @@ public class EnemyService : IEnemyService
 
     public void Initialize(Action onAllEnemiesDestoyed, Action<int> onEnemyDestroyed)
     {
-        _onAllEnemiesDestroyed += onAllEnemiesDestoyed;
-        onEnemyDestroyed += onEnemyDestroyed;
+        _onAllEnemiesDestroyed = onAllEnemiesDestoyed;
+        _onEnemyDestroyed = onEnemyDestroyed;
     }
 
     public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage)
     {
         Asteroid asteroid = GameObject.Instantiate(_asteroid, position, rotation);
-        asteroid.Initialize();
+        asteroid.Initialize(_onEnemyDestroyed);
         asteroid.SetAsteroidStage(asteroidStage);
         _enemiesActive.Add(asteroid);
     }
@@ -35,7 +35,7 @@ public class EnemyService : IEnemyService
     public void CreateEnemySaucer(Vector3 position, Quaternion rotation)
     {
         Saucer saucer = GameObject.Instantiate(_saucer, position, rotation);
-        _saucer.Initialize();
+        _saucer.Initialize(_onEnemyDestroyed);
         _enemiesActive.Add(_saucer);
     }
 

@@ -6,7 +6,6 @@ using UnityEngine;
 public class UIGame : MonoBehaviour
 {
     [SerializeField] private GameObject _life;
-
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private Transform _livesContainer;
 

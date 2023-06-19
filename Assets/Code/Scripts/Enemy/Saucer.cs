@@ -1,4 +1,5 @@
 using ServiceLocatorAsteroid.Service;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,20 +8,15 @@ public class Saucer : Enemy
 {
     [SerializeField] private List<ConfigSaucer> _configSaucer;
 
-    private Coroutine _shootingRoutine;
     private IBulletService _bulletManager;
-    private Transform _playerTransform;
 
+    private Coroutine _shootingRoutine;
+    private Transform _playerTransform;
     private ConfigSaucer _config;
 
-    private void Start()
+    public override void Initialize(Action<int> onEnemyDestroyed)
     {
-        Initialize();
-    }
-
-    public override void Initialize()
-    {
-        base.Initialize();
+        base.Initialize(onEnemyDestroyed);
         _bulletManager = ServiceLocator.Current.Get<IBulletService>();
         
         Player p = FindObjectOfType<Player>();
@@ -42,11 +38,12 @@ public class Saucer : Enemy
                 _config = _configSaucer[i];
             }
         }
+        _scoreValue = _config.scoreValue;
     }
 
     private void SetBehaviour()
     {
-        _speed = Random.Range(_config.minSpeed, _config.maxSpeed);
+        _speed = UnityEngine.Random.Range(_config.minSpeed, _config.maxSpeed);
         transform.localScale = new Vector3(_config.size, _config.size, _config.size);
     }
 
@@ -58,16 +55,5 @@ public class Saucer : Enemy
     private void Fire()
     {
         _bulletManager.CreateBullet(HitType.Player, transform.position, transform.rotation);
-    }
-
-    private void Explode()
-    {
-        _enemyManager.RemoveEnemy(this);
-    }
-
-    public override void OnHitTaken()
-    {
-        ServiceLocator.Current.Get<IGameManagerService>().Score(0);
-        Explode();
     }
 }
