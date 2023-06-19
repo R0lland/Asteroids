@@ -7,7 +7,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private Rigidbody2D _rBody;
     private float _thrust;
-    private float turnDirection;
+    private float _turnDirection;
 
     private void Start()
     {
@@ -16,8 +16,12 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        _thrust = _inputReader.Movement.ReadValue<Vector2>().y;
-        turnDirection = _inputReader.Movement.ReadValue<Vector2>().x;
+        if (_inputReader.Movement.enabled) 
+        {
+            _thrust = _inputReader.Movement.ReadValue<Vector2>().y;
+            _turnDirection = _inputReader.Movement.ReadValue<Vector2>().x;
+        }
+            
     }
 
     private void FixedUpdate()
@@ -27,9 +31,9 @@ public class PlayerMovementController : MonoBehaviour
             _rBody.AddForce(transform.up * _playerMovementConfig.thrustSpeed * _thrust);
         }
 
-        if (turnDirection != 0f)
+        if (_turnDirection != 0f)
         {
-            transform.Rotate(transform.forward, turnDirection * -_playerMovementConfig.rotationSpeed);
+            transform.Rotate(transform.forward, _turnDirection * -_playerMovementConfig.rotationSpeed);
         }
     }
 }
