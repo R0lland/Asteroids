@@ -2,7 +2,7 @@ using ServiceLocatorAsteroid.Service;
 using System;
 using UnityEngine;
 
-public class GameManager : IGameService
+public class GameManager : IGameManager
 {
     private const int MAX_LIVES = 3;
     [SerializeField] private Player _playerPrefab;
@@ -14,10 +14,9 @@ public class GameManager : IGameService
     private int _score;
     private Action<int, int> _onUiUpdate;
 
-    public GameManager(Player player, UIGame uiGame)
+    public GameManager(Player player)
     {
         _playerPrefab = player;
-        _uiGamePrefab = uiGame;
         SpawnPlayer();
         Initialize();
 
@@ -35,7 +34,7 @@ public class GameManager : IGameService
         _player.Initialize(LoseLife);
         _uiGame.Initialize(MAX_LIVES);
         _onUiUpdate = _uiGame.UpdateUI;
-        ServiceLocator.Current.Get<EnemyManager>().Initialize(RespawnEnemies);
+        ServiceLocator.Current.Get<IEnemyManager>().Initialize(RespawnEnemies);
         RespawnEnemies();
     }
 
@@ -64,7 +63,7 @@ public class GameManager : IGameService
         for (int i = 0; i < 5; i++)
         {
             Vector3 spawnDirection = UnityEngine.Random.insideUnitCircle.normalized * 5f;
-            ServiceLocator.Current.Get<EnemyManager>().CreateEnemyAsteroid(spawnDirection, new Quaternion(0f,0f,0f,0f), 0);
+            ServiceLocator.Current.Get<IEnemyManager>().CreateEnemyAsteroid(spawnDirection, new Quaternion(0f,0f,0f,0f), 0);
         }
     }
 

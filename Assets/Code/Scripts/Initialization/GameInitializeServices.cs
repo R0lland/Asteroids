@@ -13,9 +13,18 @@ public class GameInitializeServices : MonoBehaviour
     {
         ServiceLocator.Initialize();
 
-        ServiceLocator.Current.Register(new Pooling());
-        ServiceLocator.Current.Register(new BulletManager(_bullet));
-        ServiceLocator.Current.Register(new EnemyManager(_asteroid, _saucer));
-        ServiceLocator.Current.Register(new GameManager(_player, _uiGame));
+        ServiceLocator.Current.Register<IPoolingService>(new Pooling());
+        ServiceLocator.Current.Register<IBulletManager>(new BulletManager(_bullet));
+        ServiceLocator.Current.Register<IEnemyManager>(new EnemyManager(_asteroid, _saucer));
+        ServiceLocator.Current.Register<IUIManager>(new UIManager(_uiGame));
+        ServiceLocator.Current.Register<IGameManager>(new GameManager(_player));
+    }
+
+    private void OnDestroy()
+    {
+        ServiceLocator.Current.Unregister<IPoolingService>();
+        ServiceLocator.Current.Unregister<IBulletManager>();
+        ServiceLocator.Current.Unregister<IEnemyManager>();
+        ServiceLocator.Current.Unregister<IGameManager>();
     }
 }

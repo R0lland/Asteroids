@@ -72,7 +72,7 @@ public class Asteroid : Enemy
 
     public override void OnHitTaken()
     {
-        ServiceLocator.Current.Get<GameManager>().Score(_currentStage.scoreValue);
+        ServiceLocator.Current.Get<IGameManager>().Score(_currentStage.scoreValue);
         Explode();
     }
 }

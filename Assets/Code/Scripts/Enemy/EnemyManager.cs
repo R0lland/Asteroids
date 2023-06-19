@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : IGameService
+public class EnemyManager : IEnemyManager
 {
     private Asteroid _asteroid;
     private Saucer _saucer;

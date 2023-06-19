@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pooling : IGameService
+public class Pooling : IPoolingService
 {
     private Dictionary<string, IPooling> _poolingObjects = new Dictionary<string, IPooling>();
 
@@ -17,5 +17,10 @@ public class Pooling : IGameService
     public void GetObject(string type)
     {
 
+    }
+
+    public void RemoveFromPool(IPooling i)
+    {
+        
     }
 }
