@@ -16,7 +16,7 @@ public class Player : MonoBehaviour, IHittable
         }
     }
 
-    public void SetData(Action onHitTaken)
+    public void Initialize(Action onHitTaken)
     {
         _onHitTaken = onHitTaken;
     }
@@ -29,11 +29,12 @@ public class Player : MonoBehaviour, IHittable
 
     private void Explode()
     {
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void Respawn()
     {
-
+        transform.position = Vector3.zero;
+        gameObject.SetActive(true);
     }
 }

@@ -115,9 +115,25 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Movement Inputs
       m_Flags: 8
+    - m_Name: up
+      m_Id: 412093e8-f175-4c4f-a29f-9cced79a0810
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement Inputs
+      m_Flags: 8
     - m_Name: down
       m_Id: 663c83ee-bb81-41f6-bc43-549cc5558773
       m_Path: <Keyboard>/downArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement Inputs
+      m_Flags: 8
+    - m_Name: down
+      m_Id: d256b352-2c6f-4a50-be4d-07a3fec38137
+      m_Path: <Keyboard>/s
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -131,9 +147,25 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Movement Inputs
       m_Flags: 8
+    - m_Name: left
+      m_Id: 8de6bb49-8d19-4e0f-8395-910c3676da60
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement Inputs
+      m_Flags: 8
     - m_Name: right
       m_Id: f1872715-fc95-44a1-9b04-9eb1518b96e7
       m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Movement Inputs
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 6820b40d-1888-4221-ab64-fac18fb5e087
+      m_Path: <Keyboard>/d
       m_Interactions: 
       m_Processors: 
       m_Groups: 

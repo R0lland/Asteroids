@@ -1,3 +1,4 @@
+using ServiceLocatorAsteroid.Service;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Config/Bullet Config")]
