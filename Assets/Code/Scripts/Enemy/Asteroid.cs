@@ -1,3 +1,4 @@
+using ServiceLocatorAsteroid.Service;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ public class Asteroid : Enemy
     {
         if (stage > _asteroidStages.Count - 1 || stage < 0)
         {
-            Debug.LogError("Number of asteroid stages cannot be less then zero or higher then the number of stages");
+            Debug.LogError("Number of asteroid stages cannot be less then zero or higher then the number of total stages");
             _currentStage = _asteroidStages[0];
             return;
         }
@@ -91,6 +92,7 @@ public class Asteroid : Enemy
 
     public override void OnHitTaken()
     {
+        ServiceLocator.Current.Get<GameManager>().Score(_currentStage.scoreValue);
         Explode();
     }
 }

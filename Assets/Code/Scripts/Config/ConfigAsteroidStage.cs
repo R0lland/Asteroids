@@ -7,5 +7,6 @@ public class ConfigAsteroidStage : ScriptableObject
     public float minSpeed;
     public float maxSpeed;
     public float size;
+    public int scoreValue;
     public int additionalAsteroid;
 }

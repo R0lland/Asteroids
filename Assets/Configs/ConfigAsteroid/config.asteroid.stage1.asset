@@ -16,4 +16,5 @@ MonoBehaviour:
   minSpeed: 0.4
   maxSpeed: 0.6
   size: 1
+  scoreValue: 20
   additionalAsteroid: 1

@@ -6,6 +6,7 @@ public class GameInitializeServices : MonoBehaviour
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Asteroid _asteroid;
     [SerializeField] private Player _player;
+    [SerializeField] private UIGame _uiGame;
 
     private void Awake()
     {
@@ -14,6 +15,11 @@ public class GameInitializeServices : MonoBehaviour
         ServiceLocator.Current.Register(new SpawnManager());
         ServiceLocator.Current.Register(new BulletManager(_bullet));
         ServiceLocator.Current.Register(new EnemyManager(_asteroid));
-        ServiceLocator.Current.Register(new GameManager(_player));
+        
+    }
+
+    private void Start()
+    {
+        ServiceLocator.Current.Register(new GameManager(_player, _uiGame));
     }
 }
