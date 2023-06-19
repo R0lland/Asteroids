@@ -1,7 +1,7 @@
 using ServiceLocatorAsteroid.Service;
 using UnityEngine;
 
-public interface IUIManager : IGameService
+public interface IUiService : IGameService
 {
     public UIGame GetGameUI();
 

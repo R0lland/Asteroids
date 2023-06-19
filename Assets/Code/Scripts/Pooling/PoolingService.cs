@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pooling : IPoolingService
+public class PoolingService : IPoolingService
 {
     private Dictionary<string, IPooling> _poolingObjects = new Dictionary<string, IPooling>();
 

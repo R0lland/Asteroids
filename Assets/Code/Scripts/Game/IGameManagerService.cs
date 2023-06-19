@@ -1,6 +1,6 @@
 using ServiceLocatorAsteroid.Service;
 
-public interface IGameManager : IGameService
+public interface IGameManagerService : IGameService
 {
     public void Initialize();
 

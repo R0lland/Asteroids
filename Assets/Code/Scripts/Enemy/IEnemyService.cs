@@ -2,7 +2,7 @@ using ServiceLocatorAsteroid.Service;
 using System;
 using UnityEngine;
 
-public interface IEnemyManager : IGameService
+public interface IEnemyService : IGameService
 {
     public void Initialize(Action onAllEnemiesDestoyed, Action<int> onEnemyDestroyed);
 

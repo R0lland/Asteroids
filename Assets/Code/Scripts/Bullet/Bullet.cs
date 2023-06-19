@@ -7,14 +7,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private SpriteRenderer _bulletSpriteRenderer;
 
     private HitType _target = HitType.None;
-    private BulletManager _bulletManager;
+    private BulletService _bulletManager;
 
     private void Update()
     {
         transform.position += transform.up * Time.deltaTime * config.speed;
     }
 
-    public void Initialize(HitType hitType, BulletManager bulletManager)
+    public void Initialize(HitType hitType, BulletService bulletManager)
     {
         _target = hitType;
         _bulletManager = bulletManager;

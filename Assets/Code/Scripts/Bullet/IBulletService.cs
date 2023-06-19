@@ -1,7 +1,7 @@
 using ServiceLocatorAsteroid.Service;
 using UnityEngine;
 
-public interface IBulletManager : IGameService
+public interface IBulletService : IGameService
 {
     public void CreateBullet(HitType target, Vector3 position, Quaternion rotation);
 

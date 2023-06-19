@@ -2,12 +2,12 @@ using ServiceLocatorAsteroid.Service;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletManager : IBulletManager
+public class BulletService : IBulletService
 {
     private Bullet _bullet;
     private List<Bullet> _bulletsActive = new List<Bullet>();
 
-    public BulletManager(Bullet bullet)
+    public BulletService(Bullet bullet)
     {
         _bullet = bullet;
     }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : IEnemyManager
+public class EnemyService : IEnemyService
 {
     private Asteroid _asteroid;
     private Saucer _saucer;
@@ -12,7 +12,7 @@ public class EnemyManager : IEnemyManager
     private Action _onAllEnemiesDestroyed;
     private Action _onEnemyDestroyed;
 
-    public EnemyManager(Asteroid asteroid, Saucer saucer)
+    public EnemyService(Asteroid asteroid, Saucer saucer)
     {
         _asteroid = asteroid;
         _saucer = saucer;

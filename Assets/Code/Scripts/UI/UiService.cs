@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class UIManager : IUIManager
+public class UiService : IUiService
 {
     [SerializeField] private UIGame _uiGamePrefab;
 
     private UIGame _uiGame;
 
-    public UIManager(UIGame _uiGame)
+    public UiService(UIGame _uiGame)
     {
         _uiGamePrefab = _uiGame;
     }

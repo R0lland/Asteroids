@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour, IHittable
     public HitType hitType => HitType.Enemy;
 
     protected float _speed;
-    protected IEnemyManager _enemyManager;
+    protected IEnemyService _enemyManager;
 
     protected virtual void Update()
     {
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour, IHittable
     {
         if (_enemyManager == null)
         {
-            _enemyManager = ServiceLocator.Current.Get<IEnemyManager>();
+            _enemyManager = ServiceLocator.Current.Get<IEnemyService>();
         }
         SetDirection();
     }
