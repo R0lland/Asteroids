@@ -29,7 +29,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (turnDirection != 0f)
         {
-            _rBody.AddTorque(turnDirection * -_playerMovementConfig.rotationSpeed);
+            transform.Rotate(transform.forward, turnDirection * -_playerMovementConfig.rotationSpeed);
         }
     }
 }
