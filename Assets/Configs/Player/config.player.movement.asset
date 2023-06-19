@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: config.player.movement
   m_EditorClassIdentifier: 
   thrustSpeed: 3
-  rotationSpeed: 5
+  rotationSpeed: 7

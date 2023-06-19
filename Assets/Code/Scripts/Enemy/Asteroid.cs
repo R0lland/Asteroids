@@ -1,6 +1,4 @@
-using ServiceLocatorAsteroid.Service;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Asteroid : Enemy
