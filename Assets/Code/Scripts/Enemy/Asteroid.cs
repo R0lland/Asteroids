@@ -8,22 +8,7 @@ public class Asteroid : Enemy
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] List<ConfigAsteroidStage> _asteroidStages = new List<ConfigAsteroidStage>();
 
-    private float _speed = 0.5f;
     private ConfigAsteroidStage _currentStage;
-
-    private void Update()
-    {
-        transform.position += transform.up * Time.deltaTime * _speed;
-    }
-
-    private void Start()
-    {
-        if (_currentStage == null)
-        {
-            Initialize();
-            SetAsteroidStage(0);
-        }
-    }
 
     public override void Initialize()
     {
@@ -49,11 +34,6 @@ public class Asteroid : Enemy
         _speed = Random.Range(_currentStage.minSpeed, _currentStage.maxSpeed);
         transform.localScale = new Vector3(_currentStage.size, _currentStage.size, _currentStage.size);
         _spriteRenderer.transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360);
-    }
-
-    private void SetDirection()
-    {
-        transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360);
     }
 
     private void SetRandomSprite()

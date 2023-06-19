@@ -116,7 +116,7 @@ Transform:
   m_Children:
   - {fileID: 5955295086318213493}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-4368535669916833322
 MonoBehaviour:
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: e4b51692669b97b4fade37a2926db120, type: 2}
+  _bulletSpriteRenderer: {fileID: 807306414565321075}
 --- !u!61 &6622409231636786526
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -6,13 +6,15 @@ using UnityEngine;
 public class EnemyManager : IGameService
 {
     private Asteroid _asteroid;
+    private Saucer _saucer;
 
     private List<Enemy> _enemiesActive = new List<Enemy>();
     private Action _onAllEnemiesDestroyed;
 
-    public EnemyManager(Asteroid asteroid)
+    public EnemyManager(Asteroid asteroid, Saucer saucer)
     {
         _asteroid = asteroid;
+        _saucer = saucer;
     }
 
     public void Initialize(Action onAllEnemiesDestoyed)
@@ -26,6 +28,13 @@ public class EnemyManager : IGameService
         asteroid.Initialize();
         asteroid.SetAsteroidStage(asteroidStage);
         _enemiesActive.Add(asteroid);
+    }
+
+    public void CreateEnemySaucer(Vector3 position, Quaternion rotation)
+    {
+        Saucer saucer = GameObject.Instantiate(_saucer, position, rotation);
+        _saucer.Initialize();
+        _enemiesActive.Add(_saucer);
     }
 
     public void RemoveEnemy(Enemy enemy)

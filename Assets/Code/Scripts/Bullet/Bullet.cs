@@ -4,9 +4,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private ConfigBullet config;
+    [SerializeField] private SpriteRenderer _bulletSpriteRenderer;
 
     private HitType _target = HitType.None;
-    private Action<Bullet> _onBulletDestroyed;
     private BulletManager _bulletManager;
 
     private void Update()
@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     {
         _target = hitType;
         _bulletManager = bulletManager;
+        _bulletSpriteRenderer.color = hitType == HitType.Player ? Color.red : Color.white;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
