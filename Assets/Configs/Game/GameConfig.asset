@@ -15,7 +15,7 @@ MonoBehaviour:
   maxLives: 3
   timeToRespawn: 2
   timeToLose: 3
-  milestoneToNextLife: 300
+  milestoneToNextLife: 10000
   additionalAsteroidsEachStage: 1
   maxAsteroids: 9
   initialAsteroidsAmount: 5
