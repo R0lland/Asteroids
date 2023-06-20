@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IHittable
 {
-    private Action _onHitTaken;
-
     public HitType hitType => HitType.Player;
+
+    private Action _onHitTaken;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IHittable
     public void Respawn()
     {
         transform.position = Vector3.zero;
+        transform.eulerAngles = Vector3.zero;
         gameObject.SetActive(true);
     }
 }
