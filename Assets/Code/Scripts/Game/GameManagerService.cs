@@ -117,7 +117,7 @@ public class GameManagerService : IGameManagerService
 
     private void WinGame()
     {
-        GameObject.Destroy(_player.gameObject);
+        _player.gameObject.SetActive(false);
         _uiManager.GetGameUI().ShowFinalScoreScreen(_score, true);
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
