@@ -171,8 +171,8 @@ MonoBehaviour:
   _asteroid: {fileID: 3197602672714264074, guid: 929a02748143c0947a52f010582660f9, type: 3}
   _saucer: {fileID: 1001695554253479567, guid: 2a17a7463bd92f64a94535226440993c, type: 3}
   _player: {fileID: 5943561076797853111, guid: c4c27401ee7105f40b7fe772c32cd313, type: 3}
-  _uiGame: {fileID: 3132773409299567637, guid: 3efef12756dcf2a42b428ce6b773a72e, type: 3}
-  _uiMenu: {fileID: 1851622936646830007, guid: 11fadddda564037459831940b9f4314c, type: 3}
+  _gameView: {fileID: 5172043827038393111, guid: 3efef12756dcf2a42b428ce6b773a72e, type: 3}
+  _homeView: {fileID: 1851622936646830007, guid: 11fadddda564037459831940b9f4314c, type: 3}
   _configGame: {fileID: 11400000, guid: 5c5c37e6f293044468661de46efb247d, type: 2}
   _inputChecker: {fileID: 6612658446958630796, guid: 7f14140c098ca0c4d9a5be9993451908, type: 3}
 --- !u!1 &299973076

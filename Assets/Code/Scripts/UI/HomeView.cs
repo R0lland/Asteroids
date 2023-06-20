@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UIMenu : UI
+public class HomeView : View
 {
     
 }

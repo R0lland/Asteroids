@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomeService : IHomeService
+public class HomeController
 {
     private InputChecker _inputCheckerPrefab;
 
@@ -13,13 +13,14 @@ public class HomeService : IHomeService
 
     private InputChecker _inputChecker;
 
-    public HomeService(InputChecker inputCheckerPrefab) 
+    public HomeController(InputChecker inputCheckerPrefab) 
     {
         _inputCheckerPrefab = inputCheckerPrefab;
 
         _uiService = ServiceLocator.Current.Get<IUiService>();
         _enemyService = ServiceLocator.Current.Get<IEnemyService>();
         _stateService = ServiceLocator.Current.Get<IStateService>();
+        Initialize();
     }    
 
     public void Initialize()

@@ -10,13 +10,13 @@ public class UiService : IUiService
         Game
     }
 
-    [SerializeField] private UIGame _uiGamePrefab;
-    [SerializeField] private UIMenu _uiMenuPrefab;
+    [SerializeField] private GameView _uiGamePrefab;
+    [SerializeField] private HomeView _uiMenuPrefab;
 
-    private UI _currentUI;
-    private Dictionary<UIType, UI> _uiTypes = new Dictionary<UIType, UI>();
+    private View _currentUI;
+    private Dictionary<UIType, View> _uiTypes = new Dictionary<UIType, View>();
 
-    public UiService(UIGame _uiGame, UIMenu uiMenu)
+    public UiService(GameView _uiGame, HomeView uiMenu)
     {
         _uiGamePrefab = _uiGame;
         _uiMenuPrefab = uiMenu;
@@ -37,11 +37,11 @@ public class UiService : IUiService
         }
     }
 
-    public UI LoadUI(UIType uiType)
+    public View LoadUI(UIType uiType)
     {
-        if(_uiTypes.TryGetValue(uiType, out UI ui))
+        if(_uiTypes.TryGetValue(uiType, out View ui))
         {
-            UI loadedUI = GameObject.Instantiate(ui);
+            View loadedUI = GameObject.Instantiate(ui);
             return loadedUI;
         }
         return null;

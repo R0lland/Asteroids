@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIGame : UI
+public class GameView : View
 {
     [SerializeField] private GameObject _life;
     [SerializeField] private TextMeshProUGUI _scoreText;

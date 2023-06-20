@@ -7,8 +7,8 @@ public class GameInitializeServices : MonoBehaviour
     [SerializeField] private Asteroid _asteroid;
     [SerializeField] private Saucer _saucer;
     [SerializeField] private Player _player;
-    [SerializeField] private UIGame _uiGame;
-    [SerializeField] private UIMenu _uiMenu;
+    [SerializeField] private GameView _gameView;
+    [SerializeField] private HomeView _homeView;
     [SerializeField] private ConfigGame _configGame;
     [SerializeField] private InputChecker _inputChecker;
 
@@ -19,10 +19,8 @@ public class GameInitializeServices : MonoBehaviour
         ServiceLocator.Current.Register<IPoolingService>(new PoolingService());
         ServiceLocator.Current.Register<IBulletService>(new BulletService(_bullet));
         ServiceLocator.Current.Register<IEnemyService>(new EnemyService(_asteroid, _saucer));
-        ServiceLocator.Current.Register<IUiService>(new UiService(_uiGame, _uiMenu));
-        ServiceLocator.Current.Register<IHomeService>(new HomeService(_inputChecker));
-        ServiceLocator.Current.Register<IGameManagerService>(new GameManagerService(_player, _configGame));
-        ServiceLocator.Current.Register<IStateService>(new StateService());
+        ServiceLocator.Current.Register<IUiService>(new UiService(_gameView, _homeView));
+        ServiceLocator.Current.Register<IStateService>(new StateService(_player, _configGame, _inputChecker));
 
         ServiceLocator.Current.Get<IStateService>().Initialize();
     }
@@ -33,8 +31,6 @@ public class GameInitializeServices : MonoBehaviour
         ServiceLocator.Current.Unregister<IBulletService>();
         ServiceLocator.Current.Unregister<IEnemyService>();
         ServiceLocator.Current.Unregister<IUiService>();
-        ServiceLocator.Current.Unregister<IGameManagerService>();
-        ServiceLocator.Current.Unregister<IHomeService>();
         ServiceLocator.Current.Unregister<IStateService>();
     }
 }

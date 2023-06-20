@@ -8,9 +8,22 @@ public class StateService : IStateService
         GAMEPLAY
     }
 
+    private Player _player;
+    private ConfigGame _configGame;
+    private InputChecker _inputChecker;
+
+    private HomeController _homeService;
+    private GameController _gameController;
+
+    public StateService(Player player, ConfigGame configGame, InputChecker inputChecker)
+    {
+        _player = player;
+        _configGame = configGame;
+        _inputChecker = inputChecker;
+    }
+
     public void ChangeState(GameState newGameState)
     {
-        ServiceLocator.Current.Get<IUiService>().RemoveCurrentUI();
         switch (newGameState)
         {
             case GameState.MENU:
@@ -24,12 +37,12 @@ public class StateService : IStateService
 
     private void InitializeMenu()
     {
-        ServiceLocator.Current.Get<IHomeService>().Initialize();
+        _homeService = new HomeController(_inputChecker);
     }
 
     private void InitializeGame()
     {
-        ServiceLocator.Current.Get<IGameManagerService>().Initialize();
+        _gameController = new GameController(_player, _configGame);
     }
 
     public void Initialize()

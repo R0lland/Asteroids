@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class UI : MonoBehaviour
+public class View : MonoBehaviour
 {
     protected RectTransform _rectTransform;
 

@@ -3,10 +3,10 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class GameManagerService : IGameManagerService
+public class GameController
 {
     [SerializeField] private Player _playerPrefab;
-    [SerializeField] private UIGame _uiGamePrefab;
+    [SerializeField] private GameView _uiGamePrefab;
 
     private IEnemyService _enemyManager;
     private IUiService _uiManager;
@@ -15,14 +15,14 @@ public class GameManagerService : IGameManagerService
 
     private Player _player;
     private ConfigGame _configGame;
-    private UIGame _uiGame;
+    private GameView _uiGame;
 
     private int _currentLives;
     private int _numberOfAsteroidsToSpawn;
     private int _milestoneForNextLife;
     private int _score;
 
-    public GameManagerService(Player player, ConfigGame configGame)
+    public GameController(Player player, ConfigGame configGame)
     {
         _playerPrefab = player;
         _configGame = configGame;
@@ -31,6 +31,7 @@ public class GameManagerService : IGameManagerService
         _uiManager = ServiceLocator.Current.Get<IUiService>();
         _stateService = ServiceLocator.Current.Get<IStateService>();
         _bulletService = ServiceLocator.Current.Get<IBulletService>();
+        Initialize();
     }
 
     private void SpawnPlayer()
@@ -52,8 +53,8 @@ public class GameManagerService : IGameManagerService
     private void InitializeServices()
     {
         _bulletService.PoolObjects(20);
-        UI loadedUI = _uiManager.LoadUI(UiService.UIType.Menu);
-        _uiGame = loadedUI.GetComponent<UIGame>();
+        View loadedUI = _uiManager.LoadUI(UiService.UIType.Menu);
+        _uiGame = loadedUI.GetComponent<GameView>();
         _uiGame.Initialize(_configGame.maxLives);
         _player.Initialize(LoseLife);
         _enemyManager.Initialize(SpawnAsteroids, Score);
