@@ -70,6 +70,12 @@ public class GameManagerService : IGameManagerService
 
     private void LoseGame()
     {
+        _uiManager.GetGameUI().LoseGame(_score);
+        WaitForSeconds(ChangeState, _configGame.timeToLose);
+    }
+
+    private void ChangeState()
+    {
         GameObject.Destroy(_player.gameObject);
         ServiceLocator.Current.Get<IEnemyService>().DestroyAllEnemies();
         ServiceLocator.Current.Get<IBulletService>().DestroyAllBullets();
