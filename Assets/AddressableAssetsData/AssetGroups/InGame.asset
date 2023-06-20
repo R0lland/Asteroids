@@ -17,23 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 9a9a5fc47a49af8488cc4d05c36cb65c
   m_SerializeEntries:
-  - m_GUID: f3fbb60492a25774d8b164ea89734f61
-    m_Address: Assets/Level/Prefabs/Asteroid.prefab
+  - m_GUID: 3efef12756dcf2a42b428ce6b773a72e
+    m_Address: Assets/Level/Prefabs/ui/ui.ingame.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c12effd84d3972d4b876aea243e3fcdb
-    m_Address: Assets/Level/Prefabs/Bullet.prefab
+  - m_GUID: ece15f8d2bc13994c954547a06b00c51
+    m_Address: Assets/Level/Prefabs/Bullet/prefab.bullet.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7d5c955414cca194185a0f013648fda7
-    m_Address: Assets/Level/Prefabs/Player.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ca7d56455a7cf454fa2240b91f7663da
-    m_Address: Assets/Level/Prefabs/Saucer.prefab
+  - m_GUID: c4c27401ee7105f40b7fe772c32cd313
+    m_Address: Assets/Level/Prefabs/Player/prefab.player.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
