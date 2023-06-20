@@ -10,4 +10,5 @@ public class ConfigGame : ScriptableObject
     public int additionalAsteroidsEachStage;
     public int maxAsteroids;
     public int initialAsteroidsAmount;
+    public int scoreToWin;
 }

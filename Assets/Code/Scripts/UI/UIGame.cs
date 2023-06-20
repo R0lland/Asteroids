@@ -11,11 +11,14 @@ public class UIGame : UI
     [SerializeField] private GameObject _playerInfo;
     [SerializeField] private GameObject _loseScreen;
     [SerializeField] private TextMeshProUGUI _scoreLoseScreen;
+    [SerializeField] private GameObject _youWin;
 
     private List<GameObject> _livesList = new List<GameObject>();
 
     public void Initialize(int maxLives)
     {
+        _loseScreen.SetActive(false);
+        _playerInfo.SetActive(true);
         for (int i = 0; i < maxLives; i++)
         {
             GameObject life = Instantiate(_life, _livesContainer);
@@ -33,10 +36,11 @@ public class UIGame : UI
         _scoreText.text = currentScore.ToString();
     }
 
-    public void LoseGame(int currentScore)
+    public void ShowFinalScoreScreen(int currentScore, bool win)
     {
         _loseScreen.SetActive(true);
         _playerInfo.SetActive(false);
+        _youWin.SetActive(win);
         _scoreLoseScreen.text = currentScore.ToString();
     }
 }

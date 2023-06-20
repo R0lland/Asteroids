@@ -70,7 +70,7 @@ public class GameManagerService : IGameManagerService
 
     private void LoseGame()
     {
-        _uiManager.GetGameUI().LoseGame(_score);
+        _uiManager.GetGameUI().ShowFinalScoreScreen(_score, false);
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
 
@@ -109,6 +109,17 @@ public class GameManagerService : IGameManagerService
         _score += scoreValue;
         UpdateMilestone();
         _uiManager.GetGameUI().UpdateUI(_currentLives, _score);
+        if (_score >= _configGame.scoreToWin)
+        {
+            WinGame();
+        }
+    }
+
+    private void WinGame()
+    {
+        GameObject.Destroy(_player.gameObject);
+        _uiManager.GetGameUI().ShowFinalScoreScreen(_score, true);
+        WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
 
     private void UpdateMilestone()

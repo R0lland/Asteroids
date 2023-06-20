@@ -19,3 +19,4 @@ MonoBehaviour:
   additionalAsteroidsEachStage: 1
   maxAsteroids: 9
   initialAsteroidsAmount: 5
+  scoreToWin: 2000
