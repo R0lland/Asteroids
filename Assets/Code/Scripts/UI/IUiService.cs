@@ -1,12 +1,8 @@
 using ServiceLocatorAsteroid.Service;
-using UnityEngine;
+using static UiService;
 
 public interface IUiService : IGameService
 {
-    public UIGame GetGameUI();
-
-    public void CreateGameUI();
-
     public void RemoveCurrentUI();
-    public void CreateMenuUI();
+    public UI LoadUI(UIType uiType);
 }

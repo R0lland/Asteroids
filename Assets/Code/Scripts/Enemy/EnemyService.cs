@@ -2,12 +2,13 @@ using ServiceLocatorAsteroid.Service;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemyService : IEnemyService
 {
     private Asteroid _asteroid;
     private Saucer _saucer;
+
+    private IPoolingService _poolingService;
 
     private List<Enemy> _enemiesActive = new List<Enemy>();
     private Action _onAllEnemiesDestroyed;
@@ -21,7 +22,7 @@ public class EnemyService : IEnemyService
 
     public void PoolObjects(int amount)
     {
-        ServiceLocator.Current.Get<IPoolingService>().AddObjectsToPool(_asteroid, amount);
+        _poolingService.AddObjectsToPool(_asteroid, amount);
     }
 
     public void Initialize(Action onAllEnemiesDestoyed, Action<int> onEnemyDestroyed)

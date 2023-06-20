@@ -7,26 +7,34 @@ public class HomeService : IHomeService
 {
     private InputChecker _inputCheckerPrefab;
 
+    private IUiService _uiService;
+    private IEnemyService _enemyService;
+    private IStateService _stateService;
+
     private InputChecker _inputChecker;
 
     public HomeService(InputChecker inputCheckerPrefab) 
     {
         _inputCheckerPrefab = inputCheckerPrefab;
+
+        _uiService = ServiceLocator.Current.Get<IUiService>();
+        _enemyService = ServiceLocator.Current.Get<IEnemyService>();
+        _stateService = ServiceLocator.Current.Get<IStateService>();
     }    
 
     public void Initialize()
     {
         _inputChecker = GameObject.Instantiate(_inputCheckerPrefab);
-        ServiceLocator.Current.Get<IUiService>().CreateMenuUI();
-        ServiceLocator.Current.Get<IEnemyService>().CreateEnemyAsteroids(6);
+        _uiService.LoadUI(UiService.UIType.Menu);
+        _enemyService.CreateEnemyAsteroids(6);
         _inputChecker.Initialize(ChangeState);
     }
 
     private void ChangeState()
     {
         GameObject.Destroy(_inputChecker.gameObject);
-        ServiceLocator.Current.Get<IUiService>().RemoveCurrentUI();
-        ServiceLocator.Current.Get<IEnemyService>().DestroyAllEnemies();
-        ServiceLocator.Current.Get<IStateService>().ChangeState(StateService.GameState.GAMEPLAY);
+        _uiService.RemoveCurrentUI();
+        _enemyService.DestroyAllEnemies();
+        _stateService.ChangeState(StateService.GameState.GAMEPLAY);
     }
 }

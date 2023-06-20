@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [CreateAssetMenu(menuName = "Config/Asteroid Stage Config")]
 public class ConfigAsteroidStage : ScriptableObject

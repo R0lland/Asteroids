@@ -10,9 +10,12 @@ public class GameManagerService : IGameManagerService
 
     private IEnemyService _enemyManager;
     private IUiService _uiManager;
+    private IStateService _stateService;
+    private IBulletService _bulletService;
 
     private Player _player;
     private ConfigGame _configGame;
+    private UIGame _uiGame;
 
     private int _currentLives;
     private int _numberOfAsteroidsToSpawn;
@@ -23,6 +26,11 @@ public class GameManagerService : IGameManagerService
     {
         _playerPrefab = player;
         _configGame = configGame;
+
+        _enemyManager = ServiceLocator.Current.Get<IEnemyService>();
+        _uiManager = ServiceLocator.Current.Get<IUiService>();
+        _stateService = ServiceLocator.Current.Get<IStateService>();
+        _bulletService = ServiceLocator.Current.Get<IBulletService>();
     }
 
     private void SpawnPlayer()
@@ -32,27 +40,29 @@ public class GameManagerService : IGameManagerService
 
     public void Initialize()
     {
-        ServiceLocator.Current.Get<IBulletService>().PoolObjects(20);
-        SpawnPlayer();
         _score = 0;
         _numberOfAsteroidsToSpawn = _configGame.initialAsteroidsAmount;
         _currentLives = _configGame.maxLives;
         _milestoneForNextLife = _configGame.milestoneToNextLife;
+        SpawnPlayer();
+        InitializeServices();
+        SpawnAsteroids();
+    }
 
-        _enemyManager = ServiceLocator.Current.Get<IEnemyService>();
-        _uiManager = ServiceLocator.Current.Get<IUiService>();
-
-        _uiManager.CreateGameUI();
-        _uiManager.GetGameUI().Initialize(_configGame.maxLives);
+    private void InitializeServices()
+    {
+        _bulletService.PoolObjects(20);
+        UI loadedUI = _uiManager.LoadUI(UiService.UIType.Menu);
+        _uiGame = loadedUI.GetComponent<UIGame>();
+        _uiGame.Initialize(_configGame.maxLives);
         _player.Initialize(LoseLife);
         _enemyManager.Initialize(SpawnAsteroids, Score);
-        SpawnAsteroids();
     }
 
     private void LoseLife()
     {
         _currentLives--;
-        _uiManager.GetGameUI().UpdateUI(_currentLives, _score);
+        _uiGame.UpdateUI(_currentLives, _score);
         if (_currentLives <= 0)
         {
             WaitForSeconds(LoseGame, _configGame.timeToLose);
@@ -70,17 +80,18 @@ public class GameManagerService : IGameManagerService
 
     private void LoseGame()
     {
-        _uiManager.GetGameUI().ShowFinalScoreScreen(_score, false);
+        _uiGame.ShowFinalScoreScreen(_score, false);
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
 
     private void ChangeState()
     {
-        GameObject.Destroy(_player.gameObject);
-        ServiceLocator.Current.Get<IEnemyService>().DestroyAllEnemies();
-        ServiceLocator.Current.Get<IBulletService>().DestroyAllBullets();
+        if (_player)
+            GameObject.Destroy(_player.gameObject);
         _uiManager.RemoveCurrentUI();
-        ServiceLocator.Current.Get<IStateService>().ChangeState(StateService.GameState.MENU);
+        _enemyManager.DestroyAllEnemies();
+        _bulletService.DestroyAllBullets();
+        _stateService.ChangeState(StateService.GameState.MENU);
     }
 
     private async void WaitForSeconds(Action onAsyncCompleted, int seconds)
@@ -108,7 +119,7 @@ public class GameManagerService : IGameManagerService
     {
         _score += scoreValue;
         UpdateMilestone();
-        _uiManager.GetGameUI().UpdateUI(_currentLives, _score);
+        _uiGame.UpdateUI(_currentLives, _score);
         if (_score >= _configGame.scoreToWin)
         {
             WinGame();
@@ -118,7 +129,7 @@ public class GameManagerService : IGameManagerService
     private void WinGame()
     {
         _player.gameObject.SetActive(false);
-        _uiManager.GetGameUI().ShowFinalScoreScreen(_score, true);
+        _uiGame.ShowFinalScoreScreen(_score, true);
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
 

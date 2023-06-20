@@ -1,19 +1,32 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UiService : IUiService
 {
+    public enum UIType
+    {
+        None,
+        Menu,
+        Game
+    }
+
     [SerializeField] private UIGame _uiGamePrefab;
     [SerializeField] private UIMenu _uiMenuPrefab;
 
-    private UIGame _uiGame;
-    private UIMenu _uiMenu;
-
     private UI _currentUI;
+    private Dictionary<UIType, UI> _uiTypes = new Dictionary<UIType, UI>();
 
     public UiService(UIGame _uiGame, UIMenu uiMenu)
     {
         _uiGamePrefab = _uiGame;
         _uiMenuPrefab = uiMenu;
+        LoadUIs();
+    }
+
+    private void LoadUIs()
+    {
+        _uiTypes.Add(UIType.Game, _uiGamePrefab);
+        _uiTypes.Add(UIType.Menu, _uiMenuPrefab);
     }
 
     public void RemoveCurrentUI()
@@ -24,26 +37,13 @@ public class UiService : IUiService
         }
     }
 
-    public void CreateGameUI()
+    public UI LoadUI(UIType uiType)
     {
-        if (_uiGame == null)
+        if(_uiTypes.TryGetValue(uiType, out UI ui))
         {
-            _uiGame = GameObject.Instantiate(_uiGamePrefab);
-            _currentUI = _uiGame;
+            UI loadedUI = GameObject.Instantiate(ui);
+            return loadedUI;
         }
-    }
-
-    public void CreateMenuUI()
-    {
-        if (_uiMenu == null)
-        {
-            _uiMenu = GameObject.Instantiate(_uiMenuPrefab);
-            _currentUI = _uiMenu;
-        }
-    }
-
-    public UIGame GetGameUI()
-    {
-        return _uiGame;
+        return null;
     }
 }
