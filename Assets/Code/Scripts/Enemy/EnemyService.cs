@@ -2,6 +2,7 @@ using ServiceLocatorAsteroid.Service;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemyService : IEnemyService
 {
@@ -22,6 +23,15 @@ public class EnemyService : IEnemyService
     {
         _onAllEnemiesDestroyed = onAllEnemiesDestoyed;
         _onEnemyDestroyed = onEnemyDestroyed;
+    }
+
+    public void CreateEnemyAsteroids(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            Vector3 spawnDirection = UnityEngine.Random.insideUnitCircle.normalized * 5f;
+            CreateEnemyAsteroid(spawnDirection, new Quaternion(0f, 0f, 0f, 0f), 0);
+        }
     }
 
     public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage)
@@ -48,5 +58,14 @@ public class EnemyService : IEnemyService
         {
             _onAllEnemiesDestroyed?.Invoke();
         }
+    }
+
+    public void DestroyAllEnemies()
+    {
+        foreach (Enemy enemy in _enemiesActive)
+        {
+            GameObject.Destroy(enemy.gameObject);
+        }
+        _enemiesActive.Clear();
     }
 }

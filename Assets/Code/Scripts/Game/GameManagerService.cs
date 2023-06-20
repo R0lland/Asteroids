@@ -23,9 +23,6 @@ public class GameManagerService : IGameManagerService
     {
         _playerPrefab = player;
         _configGame = configGame;
-        SpawnPlayer();
-        Initialize();
-
     }
 
     private void SpawnPlayer()
@@ -35,6 +32,7 @@ public class GameManagerService : IGameManagerService
 
     public void Initialize()
     {
+        SpawnPlayer();
         _score = 0;
         _numberOfAsteroidsToSpawn = _configGame.initialAsteroidsAmount;
         _currentLives = _configGame.maxLives;
@@ -71,7 +69,9 @@ public class GameManagerService : IGameManagerService
 
     private void LoseGame()
     {
-
+        GameObject.Destroy(_player.gameObject);
+        _uiManager.RemoveCurrentUI();
+        ServiceLocator.Current.Get<IStateService>().ChangeState(StateService.GameState.MENU);
     }
 
     private async void WaitForSeconds(Action onAsyncCompleted, int seconds)

@@ -6,6 +6,6 @@ namespace ServiceLocatorAsteroid.Service
     /// </summary> 
     public interface IGameService
     {
-        
+
     }
 }

@@ -11,4 +11,6 @@ public interface IEnemyService : IGameService
     public void CreateEnemySaucer(Vector3 position, Quaternion rotation);
 
     public void RemoveEnemy(Enemy enemy);
+    public void DestroyAllEnemies();
+    public void CreateEnemyAsteroids(int amount);
 }

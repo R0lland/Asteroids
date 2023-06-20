@@ -3,26 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIGame : MonoBehaviour
+public class UIGame : UI
 {
     [SerializeField] private GameObject _life;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private Transform _livesContainer;
 
     private List<GameObject> _livesList = new List<GameObject>();
-    private RectTransform _rectTransform;
-
-    private void Start()
-    {
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas)
-        {
-            transform.SetParent(canvas.transform, false);
-            _rectTransform = GetComponent<RectTransform>();
-            _rectTransform.anchoredPosition = Vector3.zero;
-            _rectTransform.localScale = Vector3.one;
-        }
-    }
 
     public void Initialize(int maxLives)
     {
