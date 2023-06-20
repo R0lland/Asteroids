@@ -6,25 +6,6 @@ using UnityEngine;
 
 public class PoolingService : IPoolingService
 {
-    public struct PoolingObjectData
-    {
-        public List<GameObject> poolingObjectsList;
-        public int lastIndexSelected;
-        public Transform parent;
-
-        public PoolingObjectData(int lastIndexSelected, Transform parent, List<GameObject> poolable)
-        {
-            this.lastIndexSelected = lastIndexSelected;
-            this.parent = parent;
-            this.poolingObjectsList = poolable;
-        }
-
-        public void SetLastIndex(int lastIndexSelected)
-        {
-            this.lastIndexSelected = lastIndexSelected;
-        }
-    }
-
     private Dictionary<string, PoolingObjectData> _poolingObjects = new Dictionary<string, PoolingObjectData>();
 
     public void AddObjectsToPool(IPoolable poolable, int amount)
@@ -46,15 +27,15 @@ public class PoolingService : IPoolingService
         {
             Transform parentGameobject = new GameObject(name).transform;
             PoolingObjectData poolingObjectData = new PoolingObjectData(0, parentGameobject, new List<GameObject>());
-            poolingObjectData.poolingObjectsList.Add(newPoolable);
+            poolingObjectData.PoolingObjectsList.Add(newPoolable);
             newPoolable.transform.SetParent(parentGameobject);
 
             _poolingObjects.Add(name, poolingObjectData);
         }
         else
         {
-            _poolingObjects[name].poolingObjectsList.Add(newPoolable);
-            newPoolable.transform.SetParent(_poolingObjects[name].parent);
+            _poolingObjects[name].PoolingObjectsList.Add(newPoolable);
+            newPoolable.transform.SetParent(_poolingObjects[name].Parent);
         }
     }
 
@@ -64,8 +45,8 @@ public class PoolingService : IPoolingService
 
         if (_poolingObjects.ContainsKey(name))
         {
-            GameObject.Destroy(_poolingObjects[name].parent.gameObject);
-            _poolingObjects[name].poolingObjectsList.Clear();
+            GameObject.Destroy(_poolingObjects[name].Parent.gameObject);
+            _poolingObjects[name].PoolingObjectsList.Clear();
             _poolingObjects.Remove(name);
         }
     }
@@ -76,24 +57,17 @@ public class PoolingService : IPoolingService
 
         if (_poolingObjects.ContainsKey(name))
         {
-            int lastIndex = _poolingObjects[name].lastIndexSelected;
-            GameObject poolableObject = _poolingObjects[name].poolingObjectsList[lastIndex];
+            int lastIndex = _poolingObjects[name].LastIndexSelected;
+            GameObject poolableObject = _poolingObjects[name].PoolingObjectsList[lastIndex];
 
-            int newIndex = lastIndex + 1;
+            int newIndex = _poolingObjects[name].LastIndexSelected + 1;
 
-            PoolingObjectData poolingObjectData = _poolingObjects[name];
-            poolingObjectData.lastIndexSelected = newIndex;
-            
-
-            if (newIndex >= _poolingObjects[name].poolingObjectsList.Count)
+            if (newIndex >= _poolingObjects[name].PoolingObjectsList.Count)
             {
-                poolingObjectData.lastIndexSelected = 0;
+                newIndex = 0;
             }
-            else
-            {
-                poolingObjectData.lastIndexSelected = newIndex;
-            }
-            _poolingObjects[name] = poolingObjectData;
+            _poolingObjects[name].SetLastIndex(newIndex);
+
             poolableObject.SetActive(true);
             return poolableObject;
         }
