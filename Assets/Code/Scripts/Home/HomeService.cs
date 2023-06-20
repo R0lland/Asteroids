@@ -24,7 +24,7 @@ public class HomeService : IHomeService
 
     private void ChangeState()
     {
-        GameObject.Destroy(_inputChecker);
+        GameObject.Destroy(_inputChecker.gameObject);
         ServiceLocator.Current.Get<IUiService>().RemoveCurrentUI();
         ServiceLocator.Current.Get<IEnemyService>().DestroyAllEnemies();
         ServiceLocator.Current.Get<IStateService>().ChangeState(StateService.GameState.GAMEPLAY);

@@ -19,6 +19,11 @@ public class EnemyService : IEnemyService
         _saucer = saucer;
     }
 
+    public void PoolObjects(int amount)
+    {
+        ServiceLocator.Current.Get<IPoolingService>().AddObjectsToPool(_asteroid, amount);
+    }
+
     public void Initialize(Action onAllEnemiesDestoyed, Action<int> onEnemyDestroyed)
     {
         _onAllEnemiesDestroyed = onAllEnemiesDestoyed;
@@ -36,7 +41,9 @@ public class EnemyService : IEnemyService
 
     public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage)
     {
-        Asteroid asteroid = GameObject.Instantiate(_asteroid, position, rotation);
+        GameObject asteroidGameobject = ServiceLocator.Current.Get<IPoolingService>().GetFromPool(_asteroid);
+        Asteroid asteroid = asteroidGameobject.GetComponent<Asteroid>(); //GameObject.Instantiate(_asteroid, position, rotation);
+        asteroid.transform.SetPositionAndRotation(position, rotation);
         asteroid.Initialize(_onEnemyDestroyed);
         asteroid.SetAsteroidStage(asteroidStage);
         _enemiesActive.Add(asteroid);
@@ -52,7 +59,7 @@ public class EnemyService : IEnemyService
     public void RemoveEnemy(Enemy enemy)
     {
         _enemiesActive.Remove(enemy);
-        GameObject.Destroy(enemy.gameObject);
+        enemy.OnDespawn();
 
         if (_enemiesActive.Count <= 0)
         {
@@ -64,7 +71,7 @@ public class EnemyService : IEnemyService
     {
         foreach (Enemy enemy in _enemiesActive)
         {
-            GameObject.Destroy(enemy.gameObject);
+            enemy.OnDespawn();
         }
         _enemiesActive.Clear();
     }

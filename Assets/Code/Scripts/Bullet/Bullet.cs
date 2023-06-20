@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPoolable
 {
     [SerializeField] private ConfigBullet config;
     [SerializeField] private SpriteRenderer _bulletSpriteRenderer;
@@ -19,6 +19,8 @@ public class Bullet : MonoBehaviour
         _target = hitType;
         _bulletManager = bulletManager;
         _bulletSpriteRenderer.color = hitType == HitType.Player ? Color.red : Color.white;
+        Invoke(nameof(OnDespawn), config.lifeTime);
+        OnSpawn();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,5 +45,15 @@ public class Bullet : MonoBehaviour
                 _bulletManager.RemoveBullet(this);
             }
         }
+    }
+
+    public void OnSpawn()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void OnDespawn()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IHittable
+public class Enemy : MonoBehaviour, IHittable, IPoolable
 {
     public HitType hitType => HitType.Enemy;
 
@@ -44,5 +44,15 @@ public class Enemy : MonoBehaviour, IHittable
     protected void SetDirection()
     {
         transform.eulerAngles = new Vector3(0f, 0f, UnityEngine.Random.value * 360);
+    }
+
+    public void OnSpawn()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void OnDespawn()
+    {
+        gameObject.SetActive(false);
     }
 }

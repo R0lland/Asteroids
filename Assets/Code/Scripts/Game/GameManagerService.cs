@@ -32,6 +32,7 @@ public class GameManagerService : IGameManagerService
 
     public void Initialize()
     {
+        ServiceLocator.Current.Get<IBulletService>().PoolObjects(20);
         SpawnPlayer();
         _score = 0;
         _numberOfAsteroidsToSpawn = _configGame.initialAsteroidsAmount;
@@ -70,6 +71,8 @@ public class GameManagerService : IGameManagerService
     private void LoseGame()
     {
         GameObject.Destroy(_player.gameObject);
+        ServiceLocator.Current.Get<IEnemyService>().DestroyAllEnemies();
+        ServiceLocator.Current.Get<IBulletService>().DestroyAllBullets();
         _uiManager.RemoveCurrentUI();
         ServiceLocator.Current.Get<IStateService>().ChangeState(StateService.GameState.MENU);
     }

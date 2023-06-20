@@ -12,9 +12,16 @@ public class BulletService : IBulletService
         _bullet = bullet;
     }
 
+    public void PoolObjects(int amount)
+    {
+        ServiceLocator.Current.Get<IPoolingService>().AddObjectsToPool(_bullet, amount);
+    }
+
     public void CreateBullet(HitType target, Vector3 position, Quaternion rotation)
     {
-        Bullet bullet = GameObject.Instantiate(_bullet, position, rotation);
+        GameObject bulletGameobject = ServiceLocator.Current.Get<IPoolingService>().GetFromPool(_bullet);
+        Bullet bullet = bulletGameobject.GetComponent<Bullet>();
+        bullet.transform.SetPositionAndRotation(position, rotation);
         bullet.Initialize(target, this);
         _bulletsActive.Add(bullet);
     }
@@ -22,6 +29,11 @@ public class BulletService : IBulletService
     public void RemoveBullet(Bullet bullet)
     {
         _bulletsActive.Remove(bullet);
-        GameObject.Destroy(bullet.gameObject);
+        bullet.OnDespawn();
+    }
+
+    public void DestroyAllBullets()
+    {
+        ServiceLocator.Current.Get<IPoolingService>().RemoveFromPool(_bullet);
     }
 }

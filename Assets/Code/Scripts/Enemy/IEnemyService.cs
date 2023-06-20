@@ -13,4 +13,5 @@ public interface IEnemyService : IGameService
     public void RemoveEnemy(Enemy enemy);
     public void DestroyAllEnemies();
     public void CreateEnemyAsteroids(int amount);
+    public void PoolObjects(int amount);
 }

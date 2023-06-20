@@ -34,6 +34,7 @@ public class StateService : IStateService
 
     public void Initialize()
     {
+        ServiceLocator.Current.Get<IEnemyService>().PoolObjects(20);
         ChangeState(GameState.MENU);
     }
 }
