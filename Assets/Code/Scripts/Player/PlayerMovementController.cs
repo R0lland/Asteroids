@@ -20,7 +20,6 @@ public class PlayerMovementController : MonoBehaviour
         {
             _thrust = _inputReader.Movement.ReadValue<Vector2>().y;
             _turnDirection = _inputReader.Movement.ReadValue<Vector2>().x;
-            Debug.LogError($"thurst: {_thrust}, turnDirection: {_turnDirection}");
         }
             
     }
