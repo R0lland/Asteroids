@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: config.asteroid.stage2
   m_EditorClassIdentifier: 
   id: 1
-  minSpeed: 0.9
-  maxSpeed: 1.2
+  minSpeed: 1.1
+  maxSpeed: 1.6
   size: 0.6
   scoreValue: 50
   additionalAsteroid: 1
