@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: config.bullet
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 2

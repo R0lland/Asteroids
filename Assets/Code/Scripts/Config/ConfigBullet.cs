@@ -5,4 +5,5 @@ using UnityEngine;
 public class ConfigBullet : ScriptableObject
 {
     public float speed;
+    public float lifeTime;
 }
