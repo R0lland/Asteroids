@@ -1,14 +1,13 @@
 using ServiceLocatorAsteroid.Service;
 using System;
 using UnityEngine;
+using static EnemyService;
 
 public interface IEnemyService : IGameService
 {
     public void Initialize(Action onAllEnemiesDestoyed, Action<int> onEnemyDestroyed);
 
-    public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage);
-
-    public void CreateEnemySaucer(Vector3 position, Quaternion rotation);
+    public void CreateEnemy(EnemyType enemyType, Vector3 position, Quaternion rotation, int enemyStage = 0);
 
     public void RemoveEnemy(Enemy enemy);
     public void DestroyAllEnemies();

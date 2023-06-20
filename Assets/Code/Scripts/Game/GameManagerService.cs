@@ -102,11 +102,7 @@ public class GameManagerService : IGameManagerService
 
     private void SpawnAsteroids()
     {
-        for (int i = 0; i < _numberOfAsteroidsToSpawn; i++)
-        {
-            Vector3 spawnDirection = UnityEngine.Random.insideUnitCircle.normalized * 5f;
-            _enemyManager.CreateEnemyAsteroid(spawnDirection, new Quaternion(0f,0f,0f,0f), 0);
-        }
+        _enemyManager.CreateEnemyAsteroids(_numberOfAsteroidsToSpawn);
         IncreaseNumberOfAsteroidsToSpawn(_configGame.additionalAsteroidsEachStage);
     }
 

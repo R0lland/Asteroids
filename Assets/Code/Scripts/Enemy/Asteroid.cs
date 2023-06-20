@@ -66,7 +66,7 @@ public class Asteroid : Enemy
         {
             for (int i = 0; i < _currentStage.additionalAsteroid; i++)
             {
-                _enemyManager.CreateEnemyAsteroid(transform.position, transform.rotation, nextStage);
+                _enemyManager.CreateEnemy(EnemyService.EnemyType.Asteroid, transform.position, transform.rotation, nextStage);
             }
         }
     }

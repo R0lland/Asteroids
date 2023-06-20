@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class EnemyService : IEnemyService
 {
+    public enum EnemyType
+    {
+        None,
+        Asteroid,
+        Saucer
+    }
+
     private Asteroid _asteroid;
     private Saucer _saucer;
 
@@ -14,10 +21,17 @@ public class EnemyService : IEnemyService
     private Action _onAllEnemiesDestroyed;
     private Action<int> _onEnemyDestroyed;
 
+    private Dictionary<EnemyType, Enemy> enemyTypes = new Dictionary<EnemyType, Enemy>();
+
     public EnemyService(Asteroid asteroid, Saucer saucer)
     {
         _asteroid = asteroid;
         _saucer = saucer;
+
+        enemyTypes.Add(EnemyType.Asteroid, _asteroid);
+        enemyTypes.Add(EnemyType.Saucer, _saucer);
+
+        _poolingService = ServiceLocator.Current.Get<IPoolingService>();
     }
 
     public void PoolObjects(int amount)
@@ -31,6 +45,21 @@ public class EnemyService : IEnemyService
         _onEnemyDestroyed = onEnemyDestroyed;
     }
 
+    public void CreateEnemy(EnemyType enemyType, Vector3 position, Quaternion rotation, int enemyStage = 0)
+    {
+        switch (enemyType)
+        {
+            case EnemyType.None:
+                break;
+            case EnemyType.Asteroid:
+                CreateEnemyAsteroid(position, rotation, enemyStage);
+                break;
+            case EnemyType.Saucer:
+                CreateEnemySaucer(position, rotation);
+                break;
+        }
+    }
+
     public void CreateEnemyAsteroids(int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -40,17 +69,17 @@ public class EnemyService : IEnemyService
         }
     }
 
-    public void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage)
+    private void CreateEnemyAsteroid(Vector3 position, Quaternion rotation, int asteroidStage)
     {
-        GameObject asteroidGameobject = ServiceLocator.Current.Get<IPoolingService>().GetFromPool(_asteroid);
-        Asteroid asteroid = asteroidGameobject.GetComponent<Asteroid>(); //GameObject.Instantiate(_asteroid, position, rotation);
+        GameObject asteroidGameobject = _poolingService.GetFromPool(_asteroid);
+        Asteroid asteroid = asteroidGameobject.GetComponent<Asteroid>();
         asteroid.transform.SetPositionAndRotation(position, rotation);
         asteroid.Initialize(_onEnemyDestroyed);
         asteroid.SetAsteroidStage(asteroidStage);
         _enemiesActive.Add(asteroid);
     }
 
-    public void CreateEnemySaucer(Vector3 position, Quaternion rotation)
+    private void CreateEnemySaucer(Vector3 position, Quaternion rotation)
     {
         Saucer saucer = GameObject.Instantiate(_saucer, position, rotation);
         _saucer.Initialize(_onEnemyDestroyed);
