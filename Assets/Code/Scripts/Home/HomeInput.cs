@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InputChecker : MonoBehaviour
+public class HomeInput : MonoBehaviour
 {
     private Action _onKeyPressed;
 

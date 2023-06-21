@@ -9,16 +9,17 @@ public class BulletService : IBulletService
     private List<Bullet> _bulletsActive = new List<Bullet>();
 
     private IPoolingService _pooledService;
+    private IAssetsService _assetsService;
 
-    public BulletService(Bullet bullet)
+    public BulletService()
     {
-        _bullet = bullet;
-
         _pooledService = ServiceLocator.Current.Get<IPoolingService>();
+        _assetsService = ServiceLocator.Current.Get<IAssetsService>();
     }
 
     public void PoolObjects(int amount)
     {
+        _bullet = _assetsService.GetBullet();
         _pooledService.AddObjectsToPool(_bullet, amount);
     }
 

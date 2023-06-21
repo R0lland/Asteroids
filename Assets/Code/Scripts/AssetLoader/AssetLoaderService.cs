@@ -35,6 +35,7 @@ public class AssetLoaderService : IAssetLoaderService
             _assets[assetReference.RuntimeKey as string] = op;
             op.Completed += (operation) =>
             {
+                Debug.LogError($"{operation.Result.name}");
                 numberOfAssetsToLoad--;
                 
                 if (numberOfAssetsToLoad <= 0)

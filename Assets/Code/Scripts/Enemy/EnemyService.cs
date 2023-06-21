@@ -16,26 +16,21 @@ public class EnemyService : IEnemyService
     private Saucer _saucer;
 
     private IPoolingService _poolingService;
+    private IAssetsService _assetsService;
 
     private List<Enemy> _enemiesActive = new List<Enemy>();
     private Action _onAllEnemiesDestroyed;
     private Action<int> _onEnemyDestroyed;
 
-    private Dictionary<EnemyType, Enemy> enemyTypes = new Dictionary<EnemyType, Enemy>();
-
-    public EnemyService(Asteroid asteroid, Saucer saucer)
+    public EnemyService()
     {
-        _asteroid = asteroid;
-        _saucer = saucer;
-
-        enemyTypes.Add(EnemyType.Asteroid, _asteroid);
-        enemyTypes.Add(EnemyType.Saucer, _saucer);
-
         _poolingService = ServiceLocator.Current.Get<IPoolingService>();
+        _assetsService = ServiceLocator.Current.Get<IAssetsService>();
     }
 
     public void PoolObjects(int amount)
     {
+        _asteroid = _assetsService.GetAsteroid();
         _poolingService.AddObjectsToPool(_asteroid, amount);
     }
 
@@ -79,13 +74,6 @@ public class EnemyService : IEnemyService
         _enemiesActive.Add(asteroid);
     }
 
-    private void CreateEnemySaucer(Vector3 position, Quaternion rotation)
-    {
-        Saucer saucer = GameObject.Instantiate(_saucer, position, rotation);
-        _saucer.Initialize(_onEnemyDestroyed);
-        _enemiesActive.Add(_saucer);
-    }
-
     public void RemoveEnemy(Enemy enemy)
     {
         _enemiesActive.Remove(enemy);
@@ -104,5 +92,13 @@ public class EnemyService : IEnemyService
             enemy.OnDespawn();
         }
         _enemiesActive.Clear();
+    }
+
+    //Could not finish
+    private void CreateEnemySaucer(Vector3 position, Quaternion rotation)
+    {
+        Saucer saucer = GameObject.Instantiate(_saucer, position, rotation);
+        _saucer.Initialize(_onEnemyDestroyed);
+        _enemiesActive.Add(_saucer);
     }
 }

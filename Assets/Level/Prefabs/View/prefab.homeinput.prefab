@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 49085336343934878}
   - component: {fileID: 6612658446958630796}
   m_Layer: 0
-  m_Name: prefab.home.inputchecker
+  m_Name: prefab.homeinput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

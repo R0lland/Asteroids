@@ -13,6 +13,8 @@ public class GameController
     private IViewService _viewService;
     private IStateService _stateService;
     private IBulletService _bulletService;
+    private IAssetLoaderService _assetLoaderService;
+    private IAssetsService _assetsService;
 
     private Player _player;
     private ConfigGame _configGame;
@@ -23,21 +25,23 @@ public class GameController
     private int _milestoneForNextLife;
     private int _score;
 
-    public GameController(Player player, ConfigGame configGame)
+    public GameController(ConfigGame configGame)
     {
-        _playerPrefab = player;
         _configGame = configGame;
 
         _enemyService = ServiceLocator.Current.Get<IEnemyService>();
         _viewService = ServiceLocator.Current.Get<IViewService>();
         _stateService = ServiceLocator.Current.Get<IStateService>();
         _bulletService = ServiceLocator.Current.Get<IBulletService>();
-        Initialize();
+        _assetsService = ServiceLocator.Current.Get<IAssetsService>();
+        _assetLoaderService = ServiceLocator.Current.Get<IAssetLoaderService>();
+
+        _assetLoaderService.LoadAssets(_assetsService.GamePreLoadAssets(), Initialize);
     }
 
     private void SpawnPlayer()
     {
-        _player = GameObject.Instantiate(_playerPrefab, Vector3.zero, new Quaternion(0f, 0f, 0f, 0f));
+        _player = GameObject.Instantiate(_assetsService.GetPlayer());
     }
 
     public void Initialize()

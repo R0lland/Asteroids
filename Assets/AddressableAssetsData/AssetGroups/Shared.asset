@@ -27,6 +27,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ece15f8d2bc13994c954547a06b00c51
+    m_Address: Assets/Level/Prefabs/Bullet/prefab.bullet.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 929a02748143c0947a52f010582660f9
+    m_Address: Assets/Level/Prefabs/Enemies/prefab.asteroid.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c4c27401ee7105f40b7fe772c32cd313
+    m_Address: Assets/Level/Prefabs/Player/prefab.player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3efef12756dcf2a42b428ce6b773a72e
+    m_Address: Assets/Level/Prefabs/View/view.game.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a17a7463bd92f64a94535226440993c
+    m_Address: Assets/Level/Prefabs/Enemies/prefab.saucer.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8a5990b928dda4942bc50cdecef15161, type: 2}
   m_SchemaSet:

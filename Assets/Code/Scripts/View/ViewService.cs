@@ -1,3 +1,4 @@
+using ServiceLocatorAsteroid.Service;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,23 +11,13 @@ public class ViewService : IViewService
         Game
     }
 
-    private GameView _viewGamePrefab;
-    private HomeView _viewHomePrefab;
-
     private View _currentView;
-    private Dictionary<ViewType, View> _viewTypes = new Dictionary<ViewType, View>();
 
-    public ViewService(GameView _viewGame, HomeView viewHome)
-    {
-        _viewGamePrefab = _viewGame;
-        _viewHomePrefab = viewHome;
-        LoadUIs();
-    }
+    private IAssetsService _assetsService;
 
-    private void LoadUIs()
+    public ViewService()
     {
-        _viewTypes.Add(ViewType.Game, _viewGamePrefab);
-        _viewTypes.Add(ViewType.Home, _viewHomePrefab);
+        _assetsService = ServiceLocator.Current.Get<IAssetsService>();
     }
 
     public void RemoveCurrentView()
@@ -39,12 +30,16 @@ public class ViewService : IViewService
 
     public View LoadView(ViewType viewType)
     {
-        if(_viewTypes.TryGetValue(viewType, out View view))
+        View loadedView = null;
+        if (viewType == ViewType.Home)
         {
-            View loadedView = GameObject.Instantiate(view);
-            _currentView = loadedView;
-            return loadedView;
+            loadedView = GameObject.Instantiate(_assetsService.GetHomeView());
+        } 
+        else if (viewType == ViewType.Game)
+        {
+            loadedView = GameObject.Instantiate(_assetsService.GetGameView());
         }
-        return null;
+        _currentView = loadedView;
+        return loadedView;
     }
 }

@@ -5,16 +5,17 @@ using System.Collections.Generic;
 
 public class GameInitializeServices : MonoBehaviour
 {
-    [SerializeField] private Bullet _bullet;
-    [SerializeField] private Asteroid _asteroid;
-    [SerializeField] private Saucer _saucer;
-    [SerializeField] private Player _player;
-    [SerializeField] private GameView _gameView;
-    [SerializeField] private HomeView _homeView;
+    [SerializeField] private AssetReference _bullet;
+    [SerializeField] private AssetReference _asteroid;
+    [SerializeField] private AssetReference _player;
+    [SerializeField] private AssetReference _gameView;
+    [SerializeField] private AssetReference _homeView;
+    [SerializeField] private AssetReference _homeInput;
+
     [SerializeField] private ConfigGame _configGame;
-    [SerializeField] private AssetReference _inputChecker;
 
     [SerializeField] private List<AssetReference> _homePreloadAssets;
+    [SerializeField] private List<AssetReference> _gamePreloadAssets;
 
     private void Awake()
     {
@@ -22,10 +23,11 @@ public class GameInitializeServices : MonoBehaviour
 
         ServiceLocator.Current.Register<IPoolingService>(new PoolingService());
         ServiceLocator.Current.Register<IAssetLoaderService>(new AssetLoaderService());
-        ServiceLocator.Current.Register<IBulletService>(new BulletService(_bullet));
-        ServiceLocator.Current.Register<IEnemyService>(new EnemyService(_asteroid, _saucer));
-        ServiceLocator.Current.Register<IViewService>(new ViewService(_gameView, _homeView));
-        ServiceLocator.Current.Register<IStateService>(new StateService(_player, _configGame, _inputChecker, _homePreloadAssets));
+        ServiceLocator.Current.Register<IAssetsService>(new AssetsService(_bullet, _asteroid, _player, _gameView, _homeView, _homeInput, _homePreloadAssets, _gamePreloadAssets));
+        ServiceLocator.Current.Register<IBulletService>(new BulletService());
+        ServiceLocator.Current.Register<IEnemyService>(new EnemyService());
+        ServiceLocator.Current.Register<IViewService>(new ViewService());
+        ServiceLocator.Current.Register<IStateService>(new StateService(_configGame));
 
         //Starts the game
         ServiceLocator.Current.Get<IStateService>().Initialize();
