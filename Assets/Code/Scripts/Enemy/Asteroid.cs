@@ -48,7 +48,7 @@ public class Asteroid : Enemy
         int nextStage = _currentStage.id + 1;
         if (nextStage >= _asteroidStages.Count)
         {
-            _enemyManager.RemoveEnemy(this);
+            _enemyService.RemoveEnemy(this);
         }
         else
         {
@@ -62,11 +62,11 @@ public class Asteroid : Enemy
         SetRandomSprite();
         SetDirection();
         SetStageData();
-        if (_enemyManager != null)
+        if (_enemyService != null)
         {
             for (int i = 0; i < _currentStage.additionalAsteroid; i++)
             {
-                _enemyManager.CreateEnemy(EnemyService.EnemyType.Asteroid, transform.position, transform.rotation, nextStage);
+                _enemyService.CreateEnemy(EnemyService.EnemyType.Asteroid, transform.position, transform.rotation, nextStage);
             }
         }
     }

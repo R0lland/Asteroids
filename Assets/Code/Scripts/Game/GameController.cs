@@ -6,16 +6,16 @@ using UnityEngine;
 public class GameController
 {
     [SerializeField] private Player _playerPrefab;
-    [SerializeField] private GameView _uiGamePrefab;
+    [SerializeField] private GameView _viewGamePrefab;
 
-    private IEnemyService _enemyManager;
-    private IUiService _uiManager;
+    private IEnemyService _enemyService;
+    private IViewService _viewService;
     private IStateService _stateService;
     private IBulletService _bulletService;
 
     private Player _player;
     private ConfigGame _configGame;
-    private GameView _uiGame;
+    private GameView _gameView;
 
     private int _currentLives;
     private int _numberOfAsteroidsToSpawn;
@@ -27,8 +27,8 @@ public class GameController
         _playerPrefab = player;
         _configGame = configGame;
 
-        _enemyManager = ServiceLocator.Current.Get<IEnemyService>();
-        _uiManager = ServiceLocator.Current.Get<IUiService>();
+        _enemyService = ServiceLocator.Current.Get<IEnemyService>();
+        _viewService = ServiceLocator.Current.Get<IViewService>();
         _stateService = ServiceLocator.Current.Get<IStateService>();
         _bulletService = ServiceLocator.Current.Get<IBulletService>();
         Initialize();
@@ -53,17 +53,17 @@ public class GameController
     private void InitializeServices()
     {
         _bulletService.PoolObjects(20);
-        View loadedUI = _uiManager.LoadUI(UiService.UIType.Menu);
-        _uiGame = loadedUI.GetComponent<GameView>();
-        _uiGame.Initialize(_configGame.maxLives);
+        View loadedView = _viewService.LoadView(ViewService.ViewType.Game);
+        _gameView = loadedView.GetComponent<GameView>();
+        _gameView.Initialize(_configGame.maxLives);
         _player.Initialize(LoseLife);
-        _enemyManager.Initialize(SpawnAsteroids, Score);
+        _enemyService.Initialize(SpawnAsteroids, Score);
     }
 
     private void LoseLife()
     {
         _currentLives--;
-        _uiGame.UpdateUI(_currentLives, _score);
+        _gameView.UpdateView(_currentLives, _score);
         if (_currentLives <= 0)
         {
             WaitForSeconds(LoseGame, _configGame.timeToLose);
@@ -81,7 +81,7 @@ public class GameController
 
     private void LoseGame()
     {
-        _uiGame.ShowFinalScoreScreen(_score, false);
+        _gameView.ShowFinalScoreScreen(_score, false);
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
 
@@ -89,10 +89,10 @@ public class GameController
     {
         if (_player)
             GameObject.Destroy(_player.gameObject);
-        _uiManager.RemoveCurrentUI();
-        _enemyManager.DestroyAllEnemies();
+        _viewService.RemoveCurrentView();
+        _enemyService.DestroyAllEnemies();
         _bulletService.DestroyAllBullets();
-        _stateService.ChangeState(StateService.GameState.MENU);
+        _stateService.ChangeState(StateService.GameState.HOME);
     }
 
     private async void WaitForSeconds(Action onAsyncCompleted, int seconds)
@@ -103,7 +103,7 @@ public class GameController
 
     private void SpawnAsteroids()
     {
-        _enemyManager.CreateEnemyAsteroids(_numberOfAsteroidsToSpawn);
+        _enemyService.CreateEnemyAsteroids(_numberOfAsteroidsToSpawn);
         IncreaseNumberOfAsteroidsToSpawn(_configGame.additionalAsteroidsEachStage);
     }
 
@@ -116,7 +116,7 @@ public class GameController
     {
         _score += scoreValue;
         UpdateMilestone();
-        _uiGame.UpdateUI(_currentLives, _score);
+        _gameView.UpdateView(_currentLives, _score);
         if (_score >= _configGame.scoreToWin)
         {
             WinGame();
@@ -126,7 +126,7 @@ public class GameController
     private void WinGame()
     {
         _player.gameObject.SetActive(false);
-        _uiGame.ShowFinalScoreScreen(_score, true);
+        _gameView.ShowFinalScoreScreen(_score, true);
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
 

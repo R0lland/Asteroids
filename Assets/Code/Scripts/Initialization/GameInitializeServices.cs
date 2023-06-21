@@ -19,9 +19,10 @@ public class GameInitializeServices : MonoBehaviour
         ServiceLocator.Current.Register<IPoolingService>(new PoolingService());
         ServiceLocator.Current.Register<IBulletService>(new BulletService(_bullet));
         ServiceLocator.Current.Register<IEnemyService>(new EnemyService(_asteroid, _saucer));
-        ServiceLocator.Current.Register<IUiService>(new UiService(_gameView, _homeView));
+        ServiceLocator.Current.Register<IViewService>(new ViewService(_gameView, _homeView));
         ServiceLocator.Current.Register<IStateService>(new StateService(_player, _configGame, _inputChecker));
 
+        //Starts the game
         ServiceLocator.Current.Get<IStateService>().Initialize();
     }
 
@@ -30,7 +31,7 @@ public class GameInitializeServices : MonoBehaviour
         ServiceLocator.Current.Unregister<IPoolingService>();
         ServiceLocator.Current.Unregister<IBulletService>();
         ServiceLocator.Current.Unregister<IEnemyService>();
-        ServiceLocator.Current.Unregister<IUiService>();
+        ServiceLocator.Current.Unregister<IViewService>();
         ServiceLocator.Current.Unregister<IStateService>();
     }
 }

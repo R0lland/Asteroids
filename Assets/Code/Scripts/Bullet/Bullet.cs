@@ -6,17 +6,17 @@ public class Bullet : MonoBehaviour, IPoolable
     [SerializeField] private SpriteRenderer _bulletSpriteRenderer;
 
     private HitType _target = HitType.None;
-    private IBulletService _bulletManager;
+    private IBulletService _bulletService;
 
     private void Update()
     {
         transform.position += transform.up * Time.deltaTime * config.speed;
     }
 
-    public void Initialize(HitType hitType, IBulletService bulletManager)
+    public void Initialize(HitType hitType, IBulletService bulletService)
     {
         _target = hitType;
-        _bulletManager = bulletManager;
+        _bulletService = bulletService;
         _bulletSpriteRenderer.color = hitType == HitType.Player ? Color.red : Color.white;
         Invoke(nameof(OnDespawn), config.lifeTime);
         OnSpawn();
@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour, IPoolable
             if (enemy != null)
             {
                 enemy.OnHitTaken();
-                _bulletManager.RemoveBullet(this);
+                _bulletService.RemoveBullet(this);
             }
         }
         else if (_target == HitType.Player)
@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour, IPoolable
             if (player != null)
             {
                 player.OnHitTaken();
-                _bulletManager.RemoveBullet(this);
+                _bulletService.RemoveBullet(this);
             }
         }
     }

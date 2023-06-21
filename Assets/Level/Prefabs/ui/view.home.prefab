@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5497813312927436294}
   - component: {fileID: 8787716509373907311}
   m_Layer: 5
-  m_Name: ui.menu.developer
+  m_Name: developer.text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 3248141237209900339}
   - component: {fileID: 7744695342814376401}
   m_Layer: 5
-  m_Name: ui.menu.title
+  m_Name: title.text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1351122247739215479}
   - component: {fileID: 1851622936646830007}
   m_Layer: 5
-  m_Name: ui.menu
+  m_Name: view.home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 3539778247913552375}
   - component: {fileID: 4503438050674350188}
   m_Layer: 5
-  m_Name: ui.menu.pressanykey
+  m_Name: pressEnter.text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

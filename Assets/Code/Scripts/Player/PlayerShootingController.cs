@@ -7,16 +7,16 @@ public class PlayerShootingController : MonoBehaviour
     [SerializeField] private Transform _bulletPoint;
     [SerializeField] private InputReader _inputReader;
 
-    private IBulletService _bulletManager;
+    private IBulletService _bulletService;
 
     private void Start()
     {
         _inputReader.SetActionInput(Fire);
-        _bulletManager = ServiceLocator.Current.Get<IBulletService>();
+        _bulletService = ServiceLocator.Current.Get<IBulletService>();
     }
 
     private void Fire(InputAction.CallbackContext context)
     {
-        _bulletManager.CreateBullet(HitType.Enemy, _bulletPoint.position, _bulletPoint.rotation);
+        _bulletService.CreateBullet(HitType.Enemy, _bulletPoint.position, _bulletPoint.rotation);
     }
 }

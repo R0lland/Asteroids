@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5019004023310903667}
   - component: {fileID: 5172043827038393111}
   m_Layer: 5
-  m_Name: ui.ingame
+  m_Name: view.game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6078734538672064685}
   m_Layer: 5
-  m_Name: ui.ingame.finalScore
+  m_Name: finalScore.screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,8 +86,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5776161818278957337}
   - {fileID: 2869571126577104431}
+  - {fileID: 5776161818278957337}
   - {fileID: 6240254023073410566}
   m_Father: {fileID: 5019004023310903667}
   m_RootOrder: -1
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5690772952814719164}
   - component: {fileID: 5481711560182623693}
   m_Layer: 5
-  m_Name: finalscoretitle
+  m_Name: title.text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 4372341527257486658}
   - component: {fileID: 6357086979922074658}
   m_Layer: 5
-  m_Name: score
+  m_Name: score.text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -377,7 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7799005058480203476}
   m_Layer: 5
-  m_Name: ui.ingame.playerinfo
+  m_Name: playerInfo.screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 9131686681294233144}
   - component: {fileID: 4530766342578402535}
   m_Layer: 5
-  m_Name: finalscorevalue
+  m_Name: finalScore.text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 1830642531692118182}
   - component: {fileID: 7824227875563446342}
   m_Layer: 5
-  m_Name: youwintext
+  m_Name: youWin.text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 2592761763779718546}
   - component: {fileID: 602173725506271658}
   m_Layer: 5
-  m_Name: lives
+  m_Name: lives.group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

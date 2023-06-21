@@ -8,7 +8,7 @@ public class Saucer : Enemy
 {
     [SerializeField] private List<ConfigSaucer> _configSaucer;
 
-    private IBulletService _bulletManager;
+    private IBulletService _bulletService;
 
     private Coroutine _shootingRoutine;
     private Transform _playerTransform;
@@ -17,7 +17,7 @@ public class Saucer : Enemy
     public override void Initialize(Action<int> onEnemyDestroyed)
     {
         base.Initialize(onEnemyDestroyed);
-        _bulletManager = ServiceLocator.Current.Get<IBulletService>();
+        _bulletService = ServiceLocator.Current.Get<IBulletService>();
         
         Player p = FindObjectOfType<Player>();
         if (p)
@@ -54,6 +54,6 @@ public class Saucer : Enemy
 
     private void Fire()
     {
-        _bulletManager.CreateBullet(HitType.Player, transform.position, transform.rotation);
+        _bulletService.CreateBullet(HitType.Player, transform.position, transform.rotation);
     }
 }

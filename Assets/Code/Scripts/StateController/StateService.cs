@@ -4,7 +4,7 @@ public class StateService : IStateService
 {
     public enum GameState
     {
-        MENU,
+        HOME,
         GAMEPLAY
     }
 
@@ -24,10 +24,12 @@ public class StateService : IStateService
 
     public void ChangeState(GameState newGameState)
     {
+        _homeService = null;
+        _gameController = null;
         switch (newGameState)
         {
-            case GameState.MENU:
-                InitializeMenu();
+            case GameState.HOME:
+                InitializeHome();
                 break; 
             case GameState.GAMEPLAY:
                 InitializeGame();
@@ -35,7 +37,7 @@ public class StateService : IStateService
         }
     }
 
-    private void InitializeMenu()
+    private void InitializeHome()
     {
         _homeService = new HomeController(_inputChecker);
     }
@@ -48,6 +50,6 @@ public class StateService : IStateService
     public void Initialize()
     {
         ServiceLocator.Current.Get<IEnemyService>().PoolObjects(20);
-        ChangeState(GameState.MENU);
+        ChangeState(GameState.HOME);
     }
 }

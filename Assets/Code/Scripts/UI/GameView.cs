@@ -26,7 +26,7 @@ public class GameView : View
         }
     }
 
-    public void UpdateUI(int currentLives, int currentScore)
+    public void UpdateView(int currentLives, int currentScore)
     {
         for (int i = 0; i < _livesList.Count; i++)
         {

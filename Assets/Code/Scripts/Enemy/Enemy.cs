@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour, IHittable, IPoolable
 {
     public HitType hitType => HitType.Enemy;
 
-    protected IEnemyService _enemyManager;
+    protected IEnemyService _enemyService;
 
     protected Action<int> _onEnemyDestroyed;
 
@@ -26,9 +26,9 @@ public class Enemy : MonoBehaviour, IHittable, IPoolable
 
     public virtual void Initialize(Action<int> onEnemyDestroyed)
     {
-        if (_enemyManager == null)
+        if (_enemyService == null)
         {
-            _enemyManager = ServiceLocator.Current.Get<IEnemyService>();
+            _enemyService = ServiceLocator.Current.Get<IEnemyService>();
         }
         _onEnemyDestroyed = onEnemyDestroyed;
         SetDirection();
@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour, IHittable, IPoolable
 
     protected virtual void Explode()
     {
-        _enemyManager.RemoveEnemy(this);
+        _enemyService.RemoveEnemy(this);
     }
 
     protected void SetDirection()
