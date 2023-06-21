@@ -87,10 +87,11 @@ public class EnemyService : IEnemyService
 
     public void DestroyAllEnemies()
     {
-        foreach (Enemy enemy in _enemiesActive)
-        {
-            enemy.OnDespawn();
-        }
+        _poolingService.RemoveFromPool(_asteroid);
+        //foreach (Enemy enemy in _enemiesActive)
+        //{
+        //    enemy.OnDespawn();
+        //}
         _enemiesActive.Clear();
     }
 

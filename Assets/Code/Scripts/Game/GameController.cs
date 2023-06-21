@@ -58,6 +58,7 @@ public class GameController
     private void InitializeServices()
     {
         _bulletService.PoolObjects(20);
+        _enemyService.PoolObjects(20);
         View loadedView = _viewService.LoadView(ViewService.ViewType.Game);
         _gameView = loadedView.GetComponent<GameView>();
         _gameView.Initialize(_configGame.maxLives);

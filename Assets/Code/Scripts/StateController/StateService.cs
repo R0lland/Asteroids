@@ -1,5 +1,7 @@
 using ServiceLocatorAsteroid.Service;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 
 public class StateService : IStateService
@@ -18,6 +20,8 @@ public class StateService : IStateService
     private IEnemyService _enemyService;
     private IAssetLoaderService _assetLoaderService;
 
+    private GameState _currentGameState;
+
     public StateService(ConfigGame configGame)
     {
         _configGame = configGame;
@@ -28,18 +32,36 @@ public class StateService : IStateService
 
     public void ChangeState(GameState newGameState)
     {
-        _homeService = null;
-        _gameController = null;
-        _assetLoaderService.ReleaseAllHandles();
-        switch (newGameState)
+        CleanUp();
+        _currentGameState = newGameState;
+        WaitForMilliseconds(LoadNewState, 100);
+        
+    }
+
+    private void LoadNewState()
+    {
+        switch (_currentGameState)
         {
             case GameState.HOME:
                 InitializeHome();
-                break; 
+                break;
             case GameState.GAMEPLAY:
                 InitializeGame();
                 break;
         }
+    }
+
+    private void CleanUp()
+    {
+        _homeService = null;
+        _gameController = null;
+        _assetLoaderService.ReleaseAllHandles();
+    }
+
+    private async void WaitForMilliseconds(Action onAsyncCompleted, int milliseconds)
+    {
+        await Task.Delay(milliseconds);
+        onAsyncCompleted?.Invoke();
     }
 
     private void InitializeHome()
