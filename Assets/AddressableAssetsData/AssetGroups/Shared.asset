@@ -15,10 +15,15 @@ MonoBehaviour:
   m_GroupName: Shared
   m_Data:
     m_SerializedData: []
-  m_GUID: 2dccc3ba43e8c844aaefc677f18cd762
+  m_GUID: 1115b519fe5dfc24080b039662f67cc0
   m_SerializeEntries:
-  - m_GUID: 929a02748143c0947a52f010582660f9
-    m_Address: Assets/Level/Prefabs/Enemies/prefab.asteroid.prefab
+  - m_GUID: 11fadddda564037459831940b9f4314c
+    m_Address: Assets/Level/Prefabs/View/view.home.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f14140c098ca0c4d9a5be9993451908
+    m_Address: Assets/Level/Prefabs/View/prefab.home.inputchecker.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -26,5 +31,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 8a5990b928dda4942bc50cdecef15161, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: a61a971d90489754eb2e358d96a7e3f5, type: 2}
-    - {fileID: 11400000, guid: 35f84f69185840948aab8c4187f003b2, type: 2}
+    - {fileID: 11400000, guid: d05755703a6ccc044980cae8090100f6, type: 2}
+    - {fileID: 11400000, guid: 757a388ecd157c942b393bf43fc85553, type: 2}

@@ -174,7 +174,20 @@ MonoBehaviour:
   _gameView: {fileID: 5172043827038393111, guid: 3efef12756dcf2a42b428ce6b773a72e, type: 3}
   _homeView: {fileID: 1851622936646830007, guid: 11fadddda564037459831940b9f4314c, type: 3}
   _configGame: {fileID: 11400000, guid: 5c5c37e6f293044468661de46efb247d, type: 2}
-  _inputChecker: {fileID: 6612658446958630796, guid: 7f14140c098ca0c4d9a5be9993451908, type: 3}
+  _inputChecker:
+    m_AssetGUID: 7f14140c098ca0c4d9a5be9993451908
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _homePreloadAssets:
+  - m_AssetGUID: 7f14140c098ca0c4d9a5be9993451908
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 11fadddda564037459831940b9f4314c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &299973076
 GameObject:
   m_ObjectHideFlags: 0

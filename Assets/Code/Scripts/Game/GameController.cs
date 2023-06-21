@@ -2,6 +2,7 @@ using ServiceLocatorAsteroid.Service;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class GameController
 {

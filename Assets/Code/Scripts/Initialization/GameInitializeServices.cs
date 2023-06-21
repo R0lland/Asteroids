@@ -1,5 +1,7 @@
 using UnityEngine;
 using ServiceLocatorAsteroid.Service;
+using UnityEngine.AddressableAssets;
+using System.Collections.Generic;
 
 public class GameInitializeServices : MonoBehaviour
 {
@@ -10,17 +12,20 @@ public class GameInitializeServices : MonoBehaviour
     [SerializeField] private GameView _gameView;
     [SerializeField] private HomeView _homeView;
     [SerializeField] private ConfigGame _configGame;
-    [SerializeField] private InputChecker _inputChecker;
+    [SerializeField] private AssetReference _inputChecker;
+
+    [SerializeField] private List<AssetReference> _homePreloadAssets;
 
     private void Awake()
     {
         ServiceLocator.Initialize();
 
         ServiceLocator.Current.Register<IPoolingService>(new PoolingService());
+        ServiceLocator.Current.Register<IAssetLoaderService>(new AssetLoaderService());
         ServiceLocator.Current.Register<IBulletService>(new BulletService(_bullet));
         ServiceLocator.Current.Register<IEnemyService>(new EnemyService(_asteroid, _saucer));
         ServiceLocator.Current.Register<IViewService>(new ViewService(_gameView, _homeView));
-        ServiceLocator.Current.Register<IStateService>(new StateService(_player, _configGame, _inputChecker));
+        ServiceLocator.Current.Register<IStateService>(new StateService(_player, _configGame, _inputChecker, _homePreloadAssets));
 
         //Starts the game
         ServiceLocator.Current.Get<IStateService>().Initialize();
@@ -29,6 +34,7 @@ public class GameInitializeServices : MonoBehaviour
     private void OnDestroy()
     {
         ServiceLocator.Current.Unregister<IPoolingService>();
+        ServiceLocator.Current.Unregister<IAssetLoaderService>();
         ServiceLocator.Current.Unregister<IBulletService>();
         ServiceLocator.Current.Unregister<IEnemyService>();
         ServiceLocator.Current.Unregister<IViewService>();

@@ -1,24 +1,57 @@
+using System;
+using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class AssetLoaderService : IAssetLoaderService
 {
-    public void LoadAsset(AssetReference assetReference)
+    private Dictionary<string, AsyncOperationHandle<GameObject>> _assets = new Dictionary<string, AsyncOperationHandle<GameObject>>();
+
+    public GameObject LoadAsset(AssetReference assetReference)
     {
-        AsyncOperationHandle handle = assetReference.LoadAssetAsync<GameObject>();
-        handle.Completed += Handle_Completed;
+        AsyncOperationHandle<GameObject> asset = default;
+
+        string key = assetReference.RuntimeKey as string;
+        if (_assets.TryGetValue(key, out asset) == false)
+        {
+            Debug.LogError($"new asset requested, this should not happen. All assets were loaded at the start of the game");
+            asset = Addressables.LoadAssetAsync<GameObject>(assetReference);
+            _assets.Add(key, asset);
+        }
+        
+        return asset.WaitForCompletion();
     }
 
-    private void Handle_Completed(AsyncOperationHandle obj)
+    public void LoadAssets(List<AssetReference> assetReferenceList, Action onObjectsLoaded)
     {
-        if (obj.Status == AsyncOperationStatus.Succeeded)
+        int numberOfAssetsToLoad = assetReferenceList.Count;
+        foreach (AssetReference assetReference in assetReferenceList)
         {
-            
+            if (assetReference.RuntimeKeyIsValid() == false)
+                continue;
+            AsyncOperationHandle<GameObject> op = Addressables.LoadAssetAsync<GameObject>(assetReference);
+            _assets[assetReference.RuntimeKey as string] = op;
+            op.Completed += (operation) =>
+            {
+                numberOfAssetsToLoad--;
+                
+                if (numberOfAssetsToLoad <= 0)
+                {
+                    onObjectsLoaded?.Invoke();
+                }
+            };
         }
-        else
+    }
+
+    public void ReleaseAllHandles()
+    {
+        if (_assets.Count <= 0) return;
+        foreach (var assetHandle in _assets.Values)
         {
-            
+            Addressables.Release(assetHandle);
         }
+        _assets.Clear();
     }
 }
