@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3178274897873794776}
   - component: {fileID: 200008052652253948}
   m_Layer: 5
-  m_Name: ui.home.livescontainer
+  m_Name: view.home.livescontainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
