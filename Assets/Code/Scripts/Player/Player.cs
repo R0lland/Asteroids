@@ -27,13 +27,13 @@ public class Player : MonoBehaviour, IHittable
     public void OnHitTaken()
     {
         if (_isInvincible) return;
-        Explode();
+        Activate(false);
         _onHitTaken?.Invoke();
     }
 
-    private void Explode()
+    public void Activate(bool activate)
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(activate);
     }
 
     public void Respawn()
@@ -49,6 +49,11 @@ public class Player : MonoBehaviour, IHittable
         _isInvincible = true;
         if (_waitInvencibility != null) StopCoroutine(_waitInvencibility);
         _waitInvencibility = StartCoroutine(WaitInvencibility(2f));
+    }
+    
+    public void ShutDown()
+    {
+        _onHitTaken = null;
     }
 
     private IEnumerator WaitInvencibility(float duration)

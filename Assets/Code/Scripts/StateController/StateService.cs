@@ -15,11 +15,15 @@ public class StateService : IStateService
     private HomeController _homeService;
     private GameController _gameController;
 
+    private IEnemyService _enemyService;
+
     public StateService(Player player, ConfigGame configGame, InputChecker inputChecker)
     {
         _player = player;
         _configGame = configGame;
         _inputChecker = inputChecker;
+
+        _enemyService = ServiceLocator.Current.Get<IEnemyService>();
     }
 
     public void ChangeState(GameState newGameState)
@@ -49,7 +53,7 @@ public class StateService : IStateService
 
     public void Initialize()
     {
-        ServiceLocator.Current.Get<IEnemyService>().PoolObjects(20);
+        _enemyService.PoolObjects(20);
         ChangeState(GameState.HOME);
     }
 }

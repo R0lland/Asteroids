@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour, IHittable, IPoolable
     protected virtual void Explode()
     {
         _enemyService.RemoveEnemy(this);
+        _onEnemyDestroyed = null;
     }
 
     protected void SetDirection()

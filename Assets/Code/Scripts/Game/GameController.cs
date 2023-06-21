@@ -85,10 +85,20 @@ public class GameController
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
 
+    private void DestroyPlayer()
+    {
+        _player.ShutDown();
+        GameObject.Destroy(_player.gameObject);
+    }
+
+    private void ActivatePlayer(bool activate)
+    {
+        _player.Activate(activate);
+    }
+
     private void ChangeState()
     {
-        if (_player)
-            GameObject.Destroy(_player.gameObject);
+        DestroyPlayer();
         _viewService.RemoveCurrentView();
         _enemyService.DestroyAllEnemies();
         _bulletService.DestroyAllBullets();
@@ -125,7 +135,7 @@ public class GameController
 
     private void WinGame()
     {
-        _player.gameObject.SetActive(false);
+        ActivatePlayer(false);
         _gameView.ShowFinalScoreScreen(_score, true);
         WaitForSeconds(ChangeState, _configGame.timeToLose);
     }
